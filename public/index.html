@@ -448,6 +448,119 @@
             margin-top: 0.5rem;
         }
         
+        /* Chain selector */
+        .chain-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .chain-btn {
+            flex: 1;
+            padding: 0.6rem;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: #888;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+        }
+        .chain-btn:hover {
+            color: #fff;
+            border-color: #333;
+        }
+        .chain-btn.active {
+            background: rgba(78, 205, 196, 0.15);
+            border-color: #4ecdc4;
+            color: #4ecdc4;
+        }
+        .chain-icon { font-size: 1rem; }
+        
+        /* Token dropdown */
+        .token-dropdown {
+            position: relative;
+        }
+        .token-select .dropdown-arrow {
+            font-size: 0.6rem;
+            margin-left: 0.25rem;
+            color: #555;
+        }
+        .token-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 0.5rem;
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 0.5rem;
+            min-width: 140px;
+            z-index: 10;
+        }
+        .token-menu.show { display: block; }
+        .token-option-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #c0c0c0;
+        }
+        .token-option-item:hover {
+            background: rgba(78, 205, 196, 0.1);
+            color: #fff;
+        }
+        .token-icon.eth { background: #627eea; }
+        .token-icon.usdc { background: #2775ca; }
+        .token-icon.usdt { background: #26a17b; }
+        
+        /* Route preview */
+        .route-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .route-step {
+            padding: 0.25rem 0.5rem;
+            background: #2a2a3a;
+            border-radius: 4px;
+        }
+        .route-step.highlight {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+        .route-arrow { color: #555; }
+        
+        /* Fund output */
+        .fund-output {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .fund-output-value {
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+        
         .tba-info {
             display: flex;
             justify-content: space-between;
@@ -667,13 +780,73 @@
             </div>
             
             <div class="tools-tabs">
-                <button class="tool-tab active" data-tool="swap">Swap</button>
-                <button class="tool-tab" data-tool="deposit">Deposit</button>
+                <button class="tool-tab active" data-tool="fund">Fund Agent</button>
+                <button class="tool-tab" data-tool="swap">Swap</button>
                 <button class="tool-tab" data-tool="withdraw">Withdraw</button>
             </div>
             
-            <!-- Swap Tool -->
-            <div class="tool-panel active" id="swapPanel">
+            <!-- Fund Agent Tool (Combined Swap + Deposit) -->
+            <div class="tool-panel active" id="fundPanel">
+                <p class="tool-desc">One step: Pay with any token → funds your agent's storage on Dash Platform.</p>
+                
+                <div class="chain-selector">
+                    <button class="chain-btn active" data-chain="pentagon">
+                        <span class="chain-icon">⬡</span> Pentagon
+                    </button>
+                    <button class="chain-btn" data-chain="ethereum">
+                        <span class="chain-icon">◆</span> Ethereum
+                    </button>
+                </div>
+                
+                <div class="swap-box">
+                    <div class="swap-label">
+                        <span>You pay</span>
+                        <span>Balance: <span id="fundFromBalance">--</span></span>
+                    </div>
+                    <div class="swap-input-row">
+                        <input type="number" class="swap-input" id="fundAmount" placeholder="0" step="0.01">
+                        <div class="token-dropdown" id="fundTokenSelect">
+                            <div class="token-select" id="fundToken">
+                                <div class="token-icon">PC</div>
+                                <span>PC</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </div>
+                            <div class="token-menu" id="fundTokenMenu">
+                                <div class="token-option pentagon-tokens">
+                                    <div class="token-option-item" data-token="PC"><div class="token-icon">PC</div> PC</div>
+                                    <div class="token-option-item" data-token="xDASH"><div class="token-icon xdash">xD</div> xDASH</div>
+                                </div>
+                                <div class="token-option eth-tokens" style="display:none;">
+                                    <div class="token-option-item" data-token="ETH"><div class="token-icon eth">Ξ</div> ETH</div>
+                                    <div class="token-option-item" data-token="USDC"><div class="token-icon usdc">$</div> USDC</div>
+                                    <div class="token-option-item" data-token="USDT"><div class="token-icon usdt">₮</div> USDT</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="route-preview" id="routePreview">
+                    <div class="route-step">PC</div>
+                    <div class="route-arrow">→</div>
+                    <div class="route-step">xDASH</div>
+                    <div class="route-arrow">→</div>
+                    <div class="route-step highlight">Agent TBA</div>
+                </div>
+                
+                <div class="fund-output">
+                    <span>Agent receives:</span>
+                    <span class="fund-output-value"><span id="fundOutput">0</span> xDASH</span>
+                </div>
+                
+                <button class="tool-action-btn" id="fundBtn" disabled>Connect Wallet</button>
+                <p class="tool-hint" id="fundHint">1 step on Pentagon • 2 steps on Ethereum</p>
+            </div>
+            
+            <!-- Swap Tool (standalone for advanced users) -->
+            <div class="tool-panel" id="swapPanel">
+                <p class="tool-desc">Swap between PC and xDASH. For funding your agent, use "Fund Agent" instead.</p>
+                
                 <div class="swap-box">
                     <div class="swap-label">
                         <span>You pay</span>
@@ -712,32 +885,6 @@
                 </div>
                 
                 <button class="tool-action-btn" id="swapBtn" disabled>Connect Wallet</button>
-            </div>
-            
-            <!-- Deposit Tool -->
-            <div class="tool-panel" id="depositPanel">
-                <p class="tool-desc">Send xDASH to your agent's Token-Bound Account (TBA). This funds your agent's Dash Platform storage.</p>
-                
-                <div class="swap-box">
-                    <div class="swap-label">
-                        <span>Amount to deposit</span>
-                        <span>Your balance: <span id="depositBalance">--</span> xDASH</span>
-                    </div>
-                    <div class="swap-input-row">
-                        <input type="number" class="swap-input" id="depositAmount" placeholder="0" step="0.01">
-                        <div class="token-select">
-                            <div class="token-icon xdash">xD</div>
-                            <span>xDASH</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tba-info">
-                    <span class="tba-label">Agent TBA:</span>
-                    <span class="tba-address" id="agentTBA">Connect wallet to view</span>
-                </div>
-                
-                <button class="tool-action-btn" id="depositBtn" disabled>Connect Wallet</button>
             </div>
             
             <!-- Withdraw Tool -->
@@ -1034,6 +1181,146 @@
             searchInput.focus();
         });
         
+        // ========== FUND AGENT TOOL ==========
+        let selectedChain = 'pentagon';
+        let selectedFundToken = 'PC';
+        
+        // Chain selector
+        document.querySelectorAll('.chain-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.chain-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedChain = btn.dataset.chain;
+                
+                // Update token options
+                const pentagonTokens = document.querySelector('.pentagon-tokens');
+                const ethTokens = document.querySelector('.eth-tokens');
+                
+                if (selectedChain === 'pentagon') {
+                    pentagonTokens.style.display = 'block';
+                    ethTokens.style.display = 'none';
+                    selectFundToken('PC');
+                    document.getElementById('fundHint').textContent = '1 step on Pentagon • 2 steps on Ethereum';
+                } else {
+                    pentagonTokens.style.display = 'none';
+                    ethTokens.style.display = 'block';
+                    selectFundToken('ETH');
+                    document.getElementById('fundHint').textContent = 'Cross-chain: ETH → Pentagon → Agent';
+                }
+                updateRoutePreview();
+            });
+        });
+        
+        // Token dropdown
+        document.getElementById('fundToken').addEventListener('click', (e) => {
+            e.stopPropagation();
+            document.getElementById('fundTokenMenu').classList.toggle('show');
+        });
+        
+        document.addEventListener('click', () => {
+            document.getElementById('fundTokenMenu').classList.remove('show');
+        });
+        
+        document.querySelectorAll('.token-option-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                selectFundToken(item.dataset.token);
+                document.getElementById('fundTokenMenu').classList.remove('show');
+            });
+        });
+        
+        function selectFundToken(token) {
+            selectedFundToken = token;
+            const fundToken = document.getElementById('fundToken');
+            
+            const icons = {
+                'PC': '<div class="token-icon">PC</div>',
+                'xDASH': '<div class="token-icon xdash">xD</div>',
+                'ETH': '<div class="token-icon eth">Ξ</div>',
+                'USDC': '<div class="token-icon usdc">$</div>',
+                'USDT': '<div class="token-icon usdt">₮</div>'
+            };
+            
+            fundToken.innerHTML = icons[token] + '<span>' + token + '</span><span class="dropdown-arrow">▼</span>';
+            updateRoutePreview();
+            calculateFundOutput();
+        }
+        
+        function updateRoutePreview() {
+            const preview = document.getElementById('routePreview');
+            
+            if (selectedChain === 'pentagon') {
+                if (selectedFundToken === 'xDASH') {
+                    preview.innerHTML = '<div class="route-step">xDASH</div><div class="route-arrow">→</div><div class="route-step highlight">Agent TBA</div>';
+                } else {
+                    preview.innerHTML = '<div class="route-step">' + selectedFundToken + '</div><div class="route-arrow">→</div><div class="route-step">xDASH</div><div class="route-arrow">→</div><div class="route-step highlight">Agent TBA</div>';
+                }
+            } else {
+                preview.innerHTML = '<div class="route-step">' + selectedFundToken + '</div><div class="route-arrow">→</div><div class="route-step">Bridge</div><div class="route-arrow">→</div><div class="route-step">PC</div><div class="route-arrow">→</div><div class="route-step">xDASH</div><div class="route-arrow">→</div><div class="route-step highlight">Agent TBA</div>';
+            }
+        }
+        
+        document.getElementById('fundAmount').addEventListener('input', calculateFundOutput);
+        
+        function calculateFundOutput() {
+            const amount = parseFloat(document.getElementById('fundAmount').value) || 0;
+            let output = 0;
+            
+            if (amount > 0) {
+                // Conversion rates (simplified)
+                const rates = {
+                    'PC': 1 / 1.62,        // PC to xDASH
+                    'xDASH': 1,            // Direct
+                    'ETH': 2200 / 34,      // ETH → USD → xDASH (~$2200 ETH, $34 xDASH)
+                    'USDC': 1 / 34,        // USDC → xDASH ($34/xDASH)
+                    'USDT': 1 / 34
+                };
+                
+                output = amount * (rates[selectedFundToken] || 0);
+                
+                // Apply slippage/fees for cross-chain
+                if (selectedChain === 'ethereum') {
+                    output *= 0.97; // ~3% for bridge + swaps
+                }
+            }
+            
+            document.getElementById('fundOutput').textContent = output.toFixed(4);
+            updateFundButton();
+        }
+        
+        function updateFundButton() {
+            const btn = document.getElementById('fundBtn');
+            const amount = parseFloat(document.getElementById('fundAmount').value) || 0;
+            
+            if (!userAddress) {
+                btn.textContent = 'Connect Wallet';
+                btn.disabled = true;
+            } else if (amount <= 0) {
+                btn.textContent = 'Enter Amount';
+                btn.disabled = true;
+            } else {
+                const output = document.getElementById('fundOutput').textContent;
+                btn.textContent = 'Fund Agent (' + output + ' xDASH)';
+                btn.disabled = false;
+            }
+        }
+        
+        document.getElementById('fundBtn').addEventListener('click', () => {
+            if (!userAddress) {
+                connectBtn.click();
+                return;
+            }
+            
+            const amount = parseFloat(document.getElementById('fundAmount').value);
+            const output = document.getElementById('fundOutput').textContent;
+            
+            if (selectedChain === 'pentagon') {
+                alert('Fund Agent: ' + amount + ' ' + selectedFundToken + ' → ' + output + ' xDASH\n\n✓ Single transaction on Pentagon Chain\n\nFull integration coming soon!');
+            } else {
+                alert('Cross-chain Fund:\n' + amount + ' ' + selectedFundToken + ' (Ethereum)\n→ Bridge to Pentagon\n→ ' + output + ' xDASH to Agent\n\nRequires 2 transactions + bridge confirmation.\n\nFull integration coming soon!');
+            }
+        });
+        
         // ========== AGENT TOOLS ==========
         const XDASH_ADDRESS = '0x21ecbbc7D85EF5111CdBF90E596e6Be4D5534d7D';
         const WPC_ADDRESS = '0xAA3d9411DD08FDA149d4545089e241E62EE87860';
@@ -1151,37 +1438,6 @@
                   '\nOutput: ' + toAmountInput.value + '\n\nFull swap integration coming soon!');
         });
         
-        // Deposit tool
-        const depositBtn = document.getElementById('depositBtn');
-        const depositAmount = document.getElementById('depositAmount');
-        
-        depositAmount.addEventListener('input', () => {
-            if (!userAddress) {
-                depositBtn.textContent = 'Connect Wallet';
-                depositBtn.disabled = true;
-            } else {
-                const amt = parseFloat(depositAmount.value) || 0;
-                if (amt <= 0) {
-                    depositBtn.textContent = 'Enter Amount';
-                    depositBtn.disabled = true;
-                } else {
-                    depositBtn.textContent = 'Deposit ' + amt + ' xDASH';
-                    depositBtn.disabled = false;
-                }
-            }
-        });
-        
-        depositBtn.addEventListener('click', () => {
-            if (!userAddress) {
-                connectBtn.click();
-                return;
-            }
-            const amt = parseFloat(depositAmount.value);
-            if (!amt) return;
-            
-            alert('Deposit ' + amt + ' xDASH to Agent TBA\n\nThis will fund your agent\'s Dash Platform storage.\n\nFull integration coming soon!');
-        });
-        
         // Withdraw tool - permission check
         function updateWithdrawState() {
             const canWithdraw = platformAllowsWithdraw && ownerAllowsWithdraw;
@@ -1238,10 +1494,7 @@
             setTimeout(() => {
                 updateSwapButton();
                 updateWithdrawState();
-                if (userAddress) {
-                    document.getElementById('agentTBA').textContent = '0x' + userAddress.slice(2, 10) + '...' + userAddress.slice(-6) + ' (derived)';
-                    depositBtn.textContent = 'Enter Amount';
-                }
+                updateFundButton();
             }, 500);
         });
     </script>
