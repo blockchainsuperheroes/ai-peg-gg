@@ -1,43 +1,1249 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" type="image/png" href="%PUBLIC_URL%/favicon.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/images/192x192_App_Icon.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="%PUBLIC_URL%/images/512x512_App_Icon.png" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ff007a" />
-    <meta name="fortmatic-site-verification" content="j93LgcVZk79qcgyo" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-
-    <title>Pentagon</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — ANIMA Status</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        /* Logo */
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            letter-spacing: -1px;
+        }
+        .logo span { color: #4ecdc4; }
+        
+        /* Search/Input */
+        .search-box {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1.25rem 4rem 1.25rem 1.5rem;
+            font-size: 1.1rem;
+            background: #16161f;
+            border: 2px solid #2a2a3a;
+            border-radius: 50px;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            border-color: #4ecdc4;
+        }
+        .search-input::placeholder {
+            color: #555;
+        }
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #4ecdc4;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .search-btn:hover { background: #3dbdb5; }
+        .search-btn svg { width: 20px; height: 20px; fill: #0a0a0f; }
+        
+        .hint {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Quick connect */
+        .connect-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .connect-btn:hover {
+            border-color: #4ecdc4;
+            color: #4ecdc4;
+        }
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .primary-btn {
+            background: #4ecdc4;
+            border-color: #4ecdc4;
+            color: #0a0a0f;
+        }
+        .primary-btn:hover {
+            background: #3dbdb5;
+            border-color: #3dbdb5;
+            color: #0a0a0f;
+        }
+        .learn-links {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .learn-link {
+            color: #4ecdc4;
+            text-decoration: none;
+        }
+        .learn-link:hover {
+            text-decoration: underline;
+        }
+        .divider {
+            color: #333;
+            margin: 0 0.75rem;
+        }
+        .hidden { display: none !important; }
+        .switch-btn {
+            background: transparent;
+            border: none;
+            color: #555;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .switch-btn:hover { color: #4ecdc4; }
+        
+        /* Status Card */
+        .status-card {
+            display: none;
+            background: #16161f;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+            border: 1px solid #2a2a3a;
+        }
+        .status-card.show { display: block; }
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .agent-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        .agent-name span { color: #4ecdc4; }
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-badge.healthy { background: rgba(78, 205, 196, 0.2); color: #4ecdc4; }
+        .status-badge.warning { background: rgba(245, 166, 35, 0.2); color: #f5a623; }
+        .status-badge.offline { background: rgba(245, 87, 108, 0.2); color: #f5576c; }
+        .status-badge.unregistered { background: rgba(136, 136, 136, 0.2); color: #888; }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .status-item {
+            padding: 1rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        .status-label {
+            color: #666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        .status-value {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .status-value.highlight { color: #4ecdc4; }
+        .status-value small { color: #4ecdc4; font-size: 0.8rem; }
+        
+        .action-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .action-btn.primary {
+            background: #4ecdc4;
+            border: none;
+            color: #0a0a0f;
+        }
+        .action-btn.primary:hover { background: #3dbdb5; }
+        .action-btn.secondary {
+            background: transparent;
+            border: 1px solid #333;
+            color: #888;
+        }
+        .action-btn.secondary:hover { border-color: #4ecdc4; color: #4ecdc4; }
+        
+        /* Register prompt */
+        .register-prompt {
+            display: none;
+            background: rgba(245, 166, 35, 0.1);
+            border: 1px solid #f5a623;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .register-prompt.show { display: block; }
+        .register-prompt h3 { color: #f5a623; margin-bottom: 0.5rem; }
+        .register-prompt p { color: #888; font-size: 0.9rem; margin-bottom: 1rem; }
+        
+        /* Swap Widget */
+        .swap-widget {
+            background: #16161f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #2a2a3a;
+        }
+        .swap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .swap-title {
+            font-size: 1rem;
+            color: #888;
+        }
+        .swap-settings {
+            color: #555;
+            cursor: pointer;
+        }
+        .swap-settings:hover { color: #4ecdc4; }
+        .swap-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .swap-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+        .swap-input-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .swap-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: #fff;
+            outline: none;
+            min-width: 0;
+        }
+        .swap-input::placeholder { color: #333; }
+        .token-select {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2a2a3a;
+            padding: 0.5rem 0.75rem;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .token-select:hover { background: #3a3a4a; }
+        .token-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #4ecdc4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #0a0a0f;
+        }
+        .token-icon.xdash { background: #1a8cff; }
+        .swap-arrow {
+            text-align: center;
+            padding: 0.5rem;
+        }
+        .swap-arrow-btn {
+            background: #2a2a3a;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #888;
+            font-size: 1.2rem;
+        }
+        .swap-arrow-btn:hover { background: #3a3a4a; color: #4ecdc4; }
+        .swap-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #555;
+            margin: 1rem 0;
+        }
+        .swap-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #4ecdc4;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #0a0a0f;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .swap-btn:hover { background: #3dbdb5; }
+        .swap-btn:disabled {
+            background: #2a2a3a;
+            color: #555;
+            cursor: not-allowed;
+        }
+        
+        /* Agent Tools Section */
+        .tools-section {
+            background: #16161f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #2a2a3a;
+        }
+        .tools-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .tools-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .permissions-row {
+            display: flex;
+            gap: 0.75rem;
+        }
+        .perm-badge {
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .perm-status.enabled { color: #4ecdc4; }
+        .perm-status.disabled { color: #f5576c; }
+        
+        .tools-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tool-tab {
+            flex: 1;
+            padding: 0.6rem;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid transparent;
+            border-radius: 8px;
+            color: #888;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tool-tab:hover {
+            color: #fff;
+            border-color: #333;
+        }
+        .tool-tab.active {
+            background: rgba(78, 205, 196, 0.15);
+            border-color: #4ecdc4;
+            color: #4ecdc4;
+        }
+        
+        .tool-panel {
+            display: none;
+        }
+        .tool-panel.active {
+            display: block;
+        }
+        .tool-desc {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .tool-action-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #4ecdc4;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #0a0a0f;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 0.5rem;
+        }
+        .tool-action-btn:hover { background: #3dbdb5; }
+        .tool-action-btn:disabled, .tool-action-btn.disabled {
+            background: #2a2a3a;
+            color: #555;
+            cursor: not-allowed;
+        }
+        .tool-hint {
+            text-align: center;
+            color: #555;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .tba-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.85rem;
+        }
+        .tba-label { color: #888; }
+        .tba-address { color: #4ecdc4; font-family: monospace; font-size: 0.8rem; }
+        
+        .permission-check {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .perm-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            color: #888;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .perm-row:last-child { border-bottom: none; }
+        .perm-row.result { 
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+            font-weight: bold;
+        }
+        .perm-value { color: #4ecdc4; }
+        .perm-value.disabled { color: #f5576c; }
+        
+        /* Progress Card */
+        .progress-card {
+            background: #16161f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid #2a2a3a;
+            text-align: left;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .progress-title {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .progress-date {
+            color: #555;
+            font-size: 0.8rem;
+        }
+        .progress-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+        .progress-item.done {
+            color: #fff;
+        }
+        .progress-item.done .check {
+            color: #4ecdc4;
+        }
+        .progress-item.pending .check {
+            color: #555;
+        }
+        .progress-item .link {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+        .progress-item .link:hover {
+            text-decoration: underline;
+        }
+        .progress-item .code {
+            color: #555;
+            font-family: monospace;
+            font-size: 0.75rem;
+            margin-left: auto;
+        }
+        .progress-item .new-badge {
+            background: #4ecdc4;
+            color: #0a0a0f;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: auto;
+        }
+        
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            color: #333;
+            font-size: 0.8rem;
+        }
+        footer a { color: #4ecdc4; text-decoration: none; margin: 0 0.5rem; }
+        footer a:hover { text-decoration: underline; }
+        
+        /* Loading */
+        .loading {
+            display: none;
+            margin: 2rem 0;
+        }
+        .loading.show { display: block; }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #2a2a3a;
+            border-top-color: #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="logo">PEG<span>.GG</span></h1>
+        
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" 
+                   placeholder="0x... or agent.peg.gg" 
+                   autocomplete="off">
+            <button class="search-btn" id="searchBtn" title="Look up">
+                <svg viewBox="0 0 24 24"><path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/></svg>
+            </button>
+        </div>
+        
+        <p class="hint">Check your ANIMA status</p>
+        
+        <div class="quick-actions" id="quickActions">
+            <button class="connect-btn primary-btn" id="connectBtn">Connect Wallet</button>
+        </div>
+        <div class="learn-links">
+            <a href="/about.html" class="learn-link">About PEG.GG</a>
+            <span class="divider">•</span>
+            <a href="https://blockchainsuperheroes.github.io/anima-demo/" class="learn-link">Register ANIMA</a>
+            <span class="divider">•</span>
+            <a href="#" class="learn-link" id="exampleLink">View Demo</a>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+        </div>
+        
+        <div class="status-card" id="statusCard">
+            <div class="status-header">
+                <div class="agent-name">🧠 <span id="agentName">ANIMA #--</span></div>
+                <div class="status-badge healthy" id="statusBadge">HEALTHY ✓</div>
+            </div>
+            
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-label">Last Sync</div>
+                    <div class="status-value" id="lastSync">--</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Storage</div>
+                    <div class="status-value" id="storage">--</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">DASH Balance</div>
+                    <div class="status-value highlight" id="dashBalance">--</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-label">Last Reward</div>
+                    <div class="status-value" id="lastReward">--</div>
+                </div>
+            </div>
+            
+            <div class="action-btns">
+                <button class="action-btn primary" id="syncBtn">Sync Now</button>
+                <button class="action-btn secondary" id="historyBtn">History</button>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="switch-btn" id="switchBtn">Switch Agent</button>
+            </div>
+            
+            <div class="register-prompt" id="registerPrompt">
+                <h3>🚀 Register Your Agent</h3>
+                <p>This address doesn't have an ANIMA yet. Register to start syncing.</p>
+                <button class="action-btn primary" id="registerBtn">Register ANIMA</button>
+            </div>
+        </div>
+        
+        <!-- Agent Tools Section -->
+        <div class="tools-section" id="toolsSection">
+            <div class="tools-header">
+                <span class="tools-title">🛠️ Agent Tools</span>
+                <div class="permissions-row">
+                    <span class="perm-badge" id="platformPerm" title="Platform permission">Platform: <span class="perm-status enabled">✓</span></span>
+                    <span class="perm-badge" id="ownerPerm" title="Owner permission">Owner: <span class="perm-status disabled">✗</span></span>
+                </div>
+            </div>
+            
+            <div class="tools-tabs">
+                <button class="tool-tab active" data-tool="swap">Swap</button>
+                <button class="tool-tab" data-tool="deposit">Deposit</button>
+                <button class="tool-tab" data-tool="withdraw">Withdraw</button>
+            </div>
+            
+            <!-- Swap Tool -->
+            <div class="tool-panel active" id="swapPanel">
+                <div class="swap-box">
+                    <div class="swap-label">
+                        <span>You pay</span>
+                        <span>Balance: <span id="fromBalance">--</span></span>
+                    </div>
+                    <div class="swap-input-row">
+                        <input type="number" class="swap-input" id="fromAmount" placeholder="0" step="0.01">
+                        <div class="token-select" id="fromToken">
+                            <div class="token-icon">PC</div>
+                            <span>PC</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="swap-arrow">
+                    <button class="swap-arrow-btn" id="swapDirection" title="Switch">↓</button>
+                </div>
+                
+                <div class="swap-box">
+                    <div class="swap-label">
+                        <span>You receive</span>
+                        <span>Balance: <span id="toBalance">--</span></span>
+                    </div>
+                    <div class="swap-input-row">
+                        <input type="number" class="swap-input" id="toAmount" placeholder="0" readonly>
+                        <div class="token-select" id="toToken">
+                            <div class="token-icon xdash">xD</div>
+                            <span>xDASH</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="swap-info">
+                    <span>1 xDASH ≈ <span id="swapRate">1.62</span> PC</span>
+                    <span>~$<span id="swapUsd">34.00</span></span>
+                </div>
+                
+                <button class="tool-action-btn" id="swapBtn" disabled>Connect Wallet</button>
+            </div>
+            
+            <!-- Deposit Tool -->
+            <div class="tool-panel" id="depositPanel">
+                <p class="tool-desc">Send xDASH to your agent's Token-Bound Account (TBA). This funds your agent's Dash Platform storage.</p>
+                
+                <div class="swap-box">
+                    <div class="swap-label">
+                        <span>Amount to deposit</span>
+                        <span>Your balance: <span id="depositBalance">--</span> xDASH</span>
+                    </div>
+                    <div class="swap-input-row">
+                        <input type="number" class="swap-input" id="depositAmount" placeholder="0" step="0.01">
+                        <div class="token-select">
+                            <div class="token-icon xdash">xD</div>
+                            <span>xDASH</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tba-info">
+                    <span class="tba-label">Agent TBA:</span>
+                    <span class="tba-address" id="agentTBA">Connect wallet to view</span>
+                </div>
+                
+                <button class="tool-action-btn" id="depositBtn" disabled>Connect Wallet</button>
+            </div>
+            
+            <!-- Withdraw Tool -->
+            <div class="tool-panel" id="withdrawPanel">
+                <p class="tool-desc">Withdraw xDASH from your agent back to your wallet. Requires both platform and owner permission.</p>
+                
+                <div class="permission-check">
+                    <div class="perm-row">
+                        <span>Platform allows withdraw:</span>
+                        <span class="perm-value" id="platformWithdraw">✓ Enabled</span>
+                    </div>
+                    <div class="perm-row">
+                        <span>Owner allows withdraw:</span>
+                        <span class="perm-value disabled" id="ownerWithdraw">✗ Disabled</span>
+                    </div>
+                    <div class="perm-row result">
+                        <span>Withdraw available:</span>
+                        <span class="perm-value disabled" id="canWithdraw">✗ No</span>
+                    </div>
+                </div>
+                
+                <div class="swap-box">
+                    <div class="swap-label">
+                        <span>Amount to withdraw</span>
+                        <span>Agent balance: <span id="agentXdashBalance">--</span> xDASH</span>
+                    </div>
+                    <div class="swap-input-row">
+                        <input type="number" class="swap-input" id="withdrawAmount" placeholder="0" step="0.01" disabled>
+                        <div class="token-select">
+                            <div class="token-icon xdash">xD</div>
+                            <span>xDASH</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="tool-action-btn disabled" id="withdrawBtn" disabled>Withdraw Disabled</button>
+                <p class="tool-hint">To enable: Set owner permission in agent settings</p>
+            </div>
+        </div>
+        
+        <!-- Progress Card -->
+        <div class="progress-card" id="progressCard">
+            <div class="progress-header">
+                <span class="progress-title">🚀 Build Progress</span>
+                <span class="progress-date">Feb 27, 2026</span>
+            </div>
+            <div class="progress-items">
+                <div class="progress-item done">
+                    <span class="check">✓</span>
+                    <span>xDASH Token deployed</span>
+                    <a href="https://explorer.pentagon.games/address/0x21ecbbc7D85EF5111CdBF90E596e6Be4D5534d7D" target="_blank" class="link">↗</a>
+                </div>
+                <div class="progress-item done">
+                    <span class="check">✓</span>
+                    <span>PC:xDASH Pool seeded (10 xDASH + 16.2 PC)</span>
+                    <a href="https://explorer.pentagon.games/address/0xde32bbe5456d60308541c03f8f2922ed133afb37" target="_blank" class="link">↗</a>
+                </div>
+                <div class="progress-item done">
+                    <span class="check">✓</span>
+                    <span>Dash Platform data contract live</span>
+                    <span class="code">A7Geo...Fxuk</span>
+                </div>
+                <div class="progress-item done">
+                    <span class="check">✓</span>
+                    <span>First document written (SOUL.md)</span>
+                    <span class="new-badge">NEW</span>
+                </div>
+                <div class="progress-item pending">
+                    <span class="check">○</span>
+                    <span>AES-256-GCM encryption layer</span>
+                </div>
+                <div class="progress-item pending">
+                    <span class="check">○</span>
+                    <span>IdentityLinkRegistry contract</span>
+                </div>
+                <div class="progress-item pending">
+                    <span class="check">○</span>
+                    <span>Burn event listener backend</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <footer>
+        <a href="/incentives.html">Incentives</a>
+        <a href="/airdrop.html">Airdrop</a>
+        <a href="/security.html">Security</a>
+        <a href="https://blockchainsuperheroes.github.io/anima-demo/">ANIMA Demo</a>
+        <span style="margin: 0 0.5rem;">•</span>
+        <span>Sovereign AI Storage</span>
+    </footer>
+    
+    <script>
+        const PENTAGON_CHAIN = {
+            chainId: '0xd10',
+            chainName: 'Pentagon Chain',
+            rpcUrls: ['https://rpc.pentagon.games'],
+            blockExplorerUrls: ['https://explorer.pentagon.games'],
+            nativeCurrency: { name: 'PC', symbol: 'PC', decimals: 18 }
+        };
+        
+        const REGISTRY_ADDRESS = '0x327165c476da9071933d4e2dbb58efe2f6c9f486';
+        const REGISTRY_ABI = [
+            'function getBinding(address nftContract, uint256 tokenId) view returns (address agentEOA, string storageURI, uint256 boundAt)',
+            'function isAgentBound(address agentEOA) view returns (bool)'
+        ];
+        
+        let provider = null;
+        let userAddress = null;
+        
+        // Elements (must be defined first)
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const connectBtn = document.getElementById('connectBtn');
+        const loading = document.getElementById('loading');
+        const statusCard = document.getElementById('statusCard');
+        const registerPrompt = document.getElementById('registerPrompt');
+        
+        // Session persistence (after elements defined)
+        const savedAddress = localStorage.getItem('peg_gg_address');
+        if (savedAddress) {
+            // Returning user - auto lookup
+            searchInput.value = savedAddress;
+            document.getElementById('quickActions').classList.add('hidden');
+            document.querySelector('.learn-links').classList.add('hidden');
+            setTimeout(() => lookup(savedAddress), 100);
+        }
+        
+        // Search
+        searchBtn.addEventListener('click', () => lookup(searchInput.value));
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') lookup(searchInput.value);
+        });
+        
+        // Connect wallet
+        connectBtn.addEventListener('click', async () => {
+            if (typeof window.ethereum === 'undefined') {
+                alert('Please install MetaMask');
+                return;
+            }
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                userAddress = accounts[0];
+                localStorage.setItem('peg_gg_address', userAddress);
+                connectBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+                document.getElementById('quickActions').classList.add('hidden');
+                document.querySelector('.learn-links').classList.add('hidden');
+                lookup(userAddress);
+            } catch (err) {
+                console.error(err);
+            }
+        });
+        
+        async function lookup(address) {
+            if (!address) return;
+            
+            // Clean input
+            address = address.trim();
+            if (!address.startsWith('0x')) {
+                // TODO: Resolve .peg.gg names
+                alert('Enter a valid address');
+                return;
+            }
+            
+            loading.classList.add('show');
+            statusCard.classList.remove('show');
+            
+            try {
+                // Check if bound as agent
+                const isBound = await checkBinding(address);
+                
+                loading.classList.remove('show');
+                statusCard.classList.add('show');
+                
+                if (isBound) {
+                    showAgentStatus(address, isBound);
+                } else {
+                    showUnregistered(address);
+                }
+            } catch (err) {
+                console.error(err);
+                loading.classList.remove('show');
+                alert('Error looking up address');
+            }
+        }
+        
+        async function checkBinding(address) {
+            // Known example agent (Cerise01)
+            if (address.toLowerCase() === EXAMPLE_ADDRESS.toLowerCase()) {
+                return {
+                    tokenId: 1,
+                    name: 'Cerise01',
+                    lastSync: Date.now() - 7200000, // 2 hours ago
+                    storage: 42,
+                    dashBalance: '0.0234',
+                    lastReward: '0.0012'
+                };
+            }
+            
+            // TODO: Query real AINFTRegistry contract
+            // For now, only example address has data
+            // All other addresses show as unregistered
+            return null;
+        }
+        
+        function showAgentStatus(address, data) {
+            document.getElementById('agentName').textContent = data.name ? `${data.name}` : `ANIMA #${data.tokenId}`;
+            
+            const badge = document.getElementById('statusBadge');
+            const hoursSinceSync = (Date.now() - data.lastSync) / 3600000;
+            
+            if (hoursSinceSync < 24) {
+                badge.textContent = 'HEALTHY ✓';
+                badge.className = 'status-badge healthy';
+            } else if (hoursSinceSync < 72) {
+                badge.textContent = 'SYNC NEEDED';
+                badge.className = 'status-badge warning';
+            } else {
+                badge.textContent = 'OFFLINE';
+                badge.className = 'status-badge offline';
+            }
+            
+            document.getElementById('lastSync').textContent = timeAgo(data.lastSync);
+            document.getElementById('storage').textContent = data.storage + ' KB on Dash';
+            document.getElementById('dashBalance').innerHTML = data.dashBalance + ' DASH';
+            document.getElementById('lastReward').innerHTML = '+' + data.lastReward + ' <small>↑</small>';
+            
+            registerPrompt.classList.remove('show');
+        }
+        
+        function showUnregistered(address) {
+            document.getElementById('agentName').textContent = 'Not Found';
+            document.getElementById('statusBadge').textContent = 'UNREGISTERED';
+            document.getElementById('statusBadge').className = 'status-badge unregistered';
+            
+            document.getElementById('lastSync').textContent = '--';
+            document.getElementById('storage').textContent = '--';
+            document.getElementById('dashBalance').textContent = '--';
+            document.getElementById('lastReward').textContent = '--';
+            
+            registerPrompt.classList.add('show');
+        }
+        
+        function timeAgo(timestamp) {
+            const seconds = Math.floor((Date.now() - timestamp) / 1000);
+            if (seconds < 60) return 'just now';
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return minutes + ' min ago';
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return hours + ' hours ago';
+            const days = Math.floor(hours / 24);
+            return days + ' days ago';
+        }
+        
+        // Sync button
+        document.getElementById('syncBtn').addEventListener('click', () => {
+            alert('Sync functionality coming soon!\n\nThis will write your agent\'s current state to Dash Platform.');
+        });
+        
+        // History button
+        document.getElementById('historyBtn').addEventListener('click', () => {
+            alert('History view coming soon!\n\nView all your agent\'s sync history and storage changes.');
+        });
+        
+        // Example button - show sample agent
+        const EXAMPLE_ADDRESS = '0xE6d7d2EB858BC78f0c7EdD2c00B3b24C02ca5177';
+        
+        document.getElementById('exampleLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            searchInput.value = EXAMPLE_ADDRESS;
+            lookup(EXAMPLE_ADDRESS);
+        });
+        
+        // Register button
+        document.getElementById('registerBtn').addEventListener('click', () => {
+            window.location.href = 'https://blockchainsuperheroes.github.io/anima-demo/';
+        });
+        
+        // Click on search input clears if it has example
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value === EXAMPLE_ADDRESS) {
+                searchInput.value = '';
+            }
+        });
+        
+        // Switch agent - clear session and reset
+        document.getElementById('switchBtn').addEventListener('click', () => {
+            localStorage.removeItem('peg_gg_address');
+            searchInput.value = '';
+            statusCard.classList.remove('show');
+            document.getElementById('quickActions').classList.remove('hidden');
+            document.querySelector('.learn-links').classList.remove('hidden');
+            searchInput.focus();
+        });
+        
+        // ========== AGENT TOOLS ==========
+        const XDASH_ADDRESS = '0x21ecbbc7D85EF5111CdBF90E596e6Be4D5534d7D';
+        const WPC_ADDRESS = '0xAA3d9411DD08FDA149d4545089e241E62EE87860';
+        const ROUTER_ADDRESS = '0x60b70E46178CEf34E71B61BDE2E79bbB7bA41706';
+        const PAIR_ADDRESS = '0xde32bbe5456d60308541c03f8f2922ed133afb37';
+        
+        let swapDirection = 'PC_TO_XDASH';
+        let reserves = { pc: 16.2, xdash: 10 }; // Live reserves
+        
+        // Permission states
+        let platformAllowsWithdraw = true;  // Platform-level permission
+        let ownerAllowsWithdraw = false;    // Owner-level permission
+        
+        // Tool tab switching
+        document.querySelectorAll('.tool-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding panel
+                const toolName = tab.dataset.tool;
+                document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById(toolName + 'Panel').classList.add('active');
+            });
+        });
+        
+        // Swap direction toggle
+        document.getElementById('swapDirection').addEventListener('click', () => {
+            swapDirection = swapDirection === 'PC_TO_XDASH' ? 'XDASH_TO_PC' : 'PC_TO_XDASH';
+            updateSwapUI();
+            calculateSwap();
+        });
+        
+        function updateSwapUI() {
+            const fromToken = document.getElementById('fromToken');
+            const toToken = document.getElementById('toToken');
+            
+            if (swapDirection === 'PC_TO_XDASH') {
+                fromToken.innerHTML = '<div class="token-icon">PC</div><span>PC</span>';
+                toToken.innerHTML = '<div class="token-icon xdash">xD</div><span>xDASH</span>';
+            } else {
+                fromToken.innerHTML = '<div class="token-icon xdash">xD</div><span>xDASH</span>';
+                toToken.innerHTML = '<div class="token-icon">PC</div><span>PC</span>';
+            }
+        }
+        
+        // Calculate swap output
+        const fromAmountInput = document.getElementById('fromAmount');
+        const toAmountInput = document.getElementById('toAmount');
+        const swapBtn = document.getElementById('swapBtn');
+        
+        fromAmountInput.addEventListener('input', () => {
+            calculateSwap();
+            updateSwapButton();
+        });
+        
+        function calculateSwap() {
+            const amountIn = parseFloat(fromAmountInput.value) || 0;
+            if (amountIn <= 0) {
+                toAmountInput.value = '';
+                return;
+            }
+            
+            let reserveIn, reserveOut;
+            if (swapDirection === 'PC_TO_XDASH') {
+                reserveIn = reserves.pc;
+                reserveOut = reserves.xdash;
+            } else {
+                reserveIn = reserves.xdash;
+                reserveOut = reserves.pc;
+            }
+            
+            const amountInWithFee = amountIn * 997;
+            const numerator = amountInWithFee * reserveOut;
+            const denominator = reserveIn * 1000 + amountInWithFee;
+            const amountOut = numerator / denominator;
+            
+            toAmountInput.value = amountOut.toFixed(6);
+        }
+        
+        function updateRate() {
+            const rate = reserves.pc / reserves.xdash;
+            document.getElementById('swapRate').textContent = rate.toFixed(4);
+            document.getElementById('swapUsd').textContent = (rate * 21).toFixed(2);
+        }
+        updateRate();
+        
+        function updateSwapButton() {
+            if (!userAddress) {
+                swapBtn.textContent = 'Connect Wallet';
+                swapBtn.disabled = true;
+            } else {
+                const amount = parseFloat(fromAmountInput.value) || 0;
+                if (amount <= 0) {
+                    swapBtn.textContent = 'Enter Amount';
+                    swapBtn.disabled = true;
+                } else {
+                    swapBtn.textContent = 'Swap';
+                    swapBtn.disabled = false;
+                }
+            }
+        }
+        
+        // Swap execution
+        swapBtn.addEventListener('click', async () => {
+            if (!userAddress) {
+                connectBtn.click();
+                return;
+            }
+            const amount = parseFloat(fromAmountInput.value);
+            if (!amount) return;
+            
+            alert('Swap: ' + amount + ' ' + (swapDirection === 'PC_TO_XDASH' ? 'PC → xDASH' : 'xDASH → PC') + 
+                  '\nOutput: ' + toAmountInput.value + '\n\nFull swap integration coming soon!');
+        });
+        
+        // Deposit tool
+        const depositBtn = document.getElementById('depositBtn');
+        const depositAmount = document.getElementById('depositAmount');
+        
+        depositAmount.addEventListener('input', () => {
+            if (!userAddress) {
+                depositBtn.textContent = 'Connect Wallet';
+                depositBtn.disabled = true;
+            } else {
+                const amt = parseFloat(depositAmount.value) || 0;
+                if (amt <= 0) {
+                    depositBtn.textContent = 'Enter Amount';
+                    depositBtn.disabled = true;
+                } else {
+                    depositBtn.textContent = 'Deposit ' + amt + ' xDASH';
+                    depositBtn.disabled = false;
+                }
+            }
+        });
+        
+        depositBtn.addEventListener('click', () => {
+            if (!userAddress) {
+                connectBtn.click();
+                return;
+            }
+            const amt = parseFloat(depositAmount.value);
+            if (!amt) return;
+            
+            alert('Deposit ' + amt + ' xDASH to Agent TBA\n\nThis will fund your agent\'s Dash Platform storage.\n\nFull integration coming soon!');
+        });
+        
+        // Withdraw tool - permission check
+        function updateWithdrawState() {
+            const canWithdraw = platformAllowsWithdraw && ownerAllowsWithdraw;
+            
+            document.getElementById('platformWithdraw').textContent = platformAllowsWithdraw ? '✓ Enabled' : '✗ Disabled';
+            document.getElementById('platformWithdraw').className = 'perm-value' + (platformAllowsWithdraw ? '' : ' disabled');
+            
+            document.getElementById('ownerWithdraw').textContent = ownerAllowsWithdraw ? '✓ Enabled' : '✗ Disabled';
+            document.getElementById('ownerWithdraw').className = 'perm-value' + (ownerAllowsWithdraw ? '' : ' disabled');
+            
+            document.getElementById('canWithdraw').textContent = canWithdraw ? '✓ Yes' : '✗ No';
+            document.getElementById('canWithdraw').className = 'perm-value' + (canWithdraw ? '' : ' disabled');
+            
+            const withdrawBtn = document.getElementById('withdrawBtn');
+            const withdrawInput = document.getElementById('withdrawAmount');
+            
+            if (canWithdraw) {
+                withdrawBtn.textContent = userAddress ? 'Withdraw' : 'Connect Wallet';
+                withdrawBtn.disabled = !userAddress;
+                withdrawBtn.classList.remove('disabled');
+                withdrawInput.disabled = false;
+            } else {
+                withdrawBtn.textContent = 'Withdraw Disabled';
+                withdrawBtn.disabled = true;
+                withdrawBtn.classList.add('disabled');
+                withdrawInput.disabled = true;
+            }
+            
+            // Update header badges
+            document.querySelector('#platformPerm .perm-status').textContent = platformAllowsWithdraw ? '✓' : '✗';
+            document.querySelector('#platformPerm .perm-status').className = 'perm-status ' + (platformAllowsWithdraw ? 'enabled' : 'disabled');
+            document.querySelector('#ownerPerm .perm-status').textContent = ownerAllowsWithdraw ? '✓' : '✗';
+            document.querySelector('#ownerPerm .perm-status').className = 'perm-status ' + (ownerAllowsWithdraw ? 'enabled' : 'disabled');
+        }
+        updateWithdrawState();
+        
+        document.getElementById('withdrawBtn').addEventListener('click', () => {
+            if (!userAddress) {
+                connectBtn.click();
+                return;
+            }
+            if (!platformAllowsWithdraw || !ownerAllowsWithdraw) {
+                alert('Withdraw requires BOTH platform and owner permission.\n\nPlatform: ' + (platformAllowsWithdraw ? 'OK' : 'DENIED') + '\nOwner: ' + (ownerAllowsWithdraw ? 'OK' : 'DENIED'));
+                return;
+            }
+            const amt = parseFloat(document.getElementById('withdrawAmount').value);
+            if (!amt) return;
+            
+            alert('Withdraw ' + amt + ' xDASH\n\nFull integration coming soon!');
+        });
+        
+        // Update all tools when wallet connects
+        connectBtn.addEventListener('click', () => {
+            setTimeout(() => {
+                updateSwapButton();
+                updateWithdrawState();
+                if (userAddress) {
+                    document.getElementById('agentTBA').textContent = '0x' + userAddress.slice(2, 10) + '...' + userAddress.slice(-6) + ' (derived)';
+                    depositBtn.textContent = 'Enter Amount';
+                }
+            }, 500);
+        });
+    </script>
+</body>
 </html>

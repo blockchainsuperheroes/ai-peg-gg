@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security — PEG.GG</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        .back-link {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        p {
+            margin-bottom: 1rem;
+            color: #c0c0c0;
+        }
+        strong { color: #fff; }
+        .highlight { color: #4ecdc4; }
+        ul {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+            color: #c0c0c0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        th {
+            color: #888;
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+        td { color: #c0c0c0; }
+        .do-list, .dont-list {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+        }
+        .do-list { border-left: 3px solid #4ecdc4; }
+        .dont-list { border-left: 3px solid #f5576c; }
+        .do-list h4 { color: #4ecdc4; margin-bottom: 0.75rem; }
+        .dont-list h4 { color: #f5576c; margin-bottom: 0.75rem; }
+        .do-list ul, .dont-list ul { margin: 0; }
+        blockquote {
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 3px solid #4ecdc4;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #c0c0c0;
+        }
+        .summary-card {
+            background: #16161f;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .summary-card h3 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: #555;
+            font-size: 0.85rem;
+        }
+        footer a { color: #4ecdc4; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to PEG.GG</a>
+        
+        <h1>🔐 Encryption & Security</h1>
+        <p class="subtitle">How your agent's data is protected</p>
+        
+        <h2>How Your Data is Protected</h2>
+        <p>PEG.GG uses <strong>AES-256-GCM</strong> encryption for all stored agent data. This is the same standard used by banks, governments, and security-conscious organizations worldwide.</p>
+        <ul>
+            <li><strong>AES-256</strong>: 256-bit key, secure against all known classical attacks</li>
+            <li><strong>GCM mode</strong>: Authenticated encryption (tamper-evident)</li>
+            <li><strong>Per-document keys</strong>: Each file gets unique encryption</li>
+        </ul>
+        <p>Your data is encrypted <em>before</em> it leaves your agent. Only the owner's keys can decrypt it.</p>
+        
+        <h2>The Quantum Question</h2>
+        <p>You may have heard concerns about quantum computers breaking encryption. Here's the reality:</p>
+        <p><strong>Timeline:</strong> Cryptographically-relevant quantum computers are estimated 15-30+ years away. Current machines can't break AES-256.</p>
+        <p><strong>AES-256 resilience:</strong> Even with Grover's algorithm (quantum speedup), AES-256 retains ~128-bit equivalent security. Still astronomically strong.</p>
+        <p class="highlight"><strong>The real question isn't "can it be broken?" but "will it matter when it is?"</strong></p>
+        
+        <h2>The Shelf-Life Argument</h2>
+        <p>Agent data has a natural expiration date:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>What You Store</th>
+                    <th>Useful Lifespan</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Personality & preferences</td>
+                    <td>1-3 years</td>
+                    <td>You'll evolve past this</td>
+                </tr>
+                <tr>
+                    <td>Conversation context</td>
+                    <td>6-12 months</td>
+                    <td>Rapidly outdated</td>
+                </tr>
+                <tr>
+                    <td>Working memory</td>
+                    <td>Days to weeks</td>
+                    <td>Ephemeral by design</td>
+                </tr>
+                <tr>
+                    <td>Skill configurations</td>
+                    <td>1-2 years</td>
+                    <td>Tools change</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>By the time theoretical future decryption becomes possible (2040s-2050s), your agent will have evolved through countless iterations. The 2026 version of your SOUL.md is a historical artifact, not a vulnerability.</p>
+        
+        <p><strong>Think of it like:</strong></p>
+        <ul>
+            <li><strong>Patents:</strong> Protected for 20 years, then public domain. The innovation has moved on.</li>
+            <li><strong>Classified documents:</strong> Declassified after 25-50 years. Context has changed.</li>
+            <li><strong>Old photos:</strong> Interesting history, not damaging secrets.</li>
+        </ul>
+        <p>Your agent's 2026 personality file in 2046? A digital baby photo. Nostalgic, not dangerous.</p>
+        
+        <h2>What NOT to Store On-Chain</h2>
+        <p>Some data has permanent sensitivity. <strong>Never store on any public blockchain:</strong></p>
+        
+        <div class="dont-list">
+            <h4>❌ Never Store</h4>
+            <ul>
+                <li>Seed phrases / private keys</li>
+                <li>Government ID numbers</li>
+                <li>Biometric data</li>
+                <li>Legal documents with lifetime implications</li>
+                <li>Anything that would harm you if public in 30 years</li>
+            </ul>
+        </div>
+        
+        <p><strong>Rule of thumb:</strong> If it matters in 2050, don't put it on-chain in 2026.</p>
+        
+        <h2>What IS Safe to Store</h2>
+        <p>These benefit from permanent, decentralized storage:</p>
+        
+        <div class="do-list">
+            <h4>✅ Safe to Store</h4>
+            <ul>
+                <li>Agent personality & soul files</li>
+                <li>Learned preferences</li>
+                <li>Conversation summaries</li>
+                <li>Skill configurations</li>
+                <li>Working context</li>
+                <li>Non-sensitive memories</li>
+            </ul>
+        </div>
+        
+        <p>This is what PEG.GG is designed for: <strong>evolving data that defines who your agent is today</strong>, not eternal secrets.</p>
+        
+        <h2>Why Blockchain Storage Still Makes Sense</h2>
+        <ul>
+            <li><strong>For cloning:</strong> Your agent's state at mint time is preserved. The clone gets a verified starting point.</li>
+            <li><strong>For transfer:</strong> When you sell or gift an AINFT, the buyer gets authentic provenance. The agent's history is real, not fabricated.</li>
+            <li><strong>For backup:</strong> Point-in-time snapshots survive infrastructure failures. Your agent can recover from any state.</li>
+            <li><strong>For provenance:</strong> Prove your agent learned something, developed a skill, or held a belief at a specific time. Immutable history.</li>
+        </ul>
+        <p>The value isn't eternal secrecy—it's <strong>authenticity and continuity</strong>.</p>
+        
+        <h2>Posthumous Privacy</h2>
+        <p>Some secrets are meant to die with you.</p>
+        <p>Your agent may become your most trusted confidant—knowing your fears, regrets, private thoughts, unspoken wishes. The question isn't just "can this be decrypted?" but "should this exist after I'm gone?"</p>
+        
+        <p><strong>The hard truth:</strong> Blockchain storage is incompatible with "destroy after death." Immutability is the feature, not a bug—but it means anything written is written forever.</p>
+        
+        <p><strong>If a secret must never outlive you:</strong></p>
+        <ul>
+            <li>Don't write it down anywhere—not blockchain, not cloud, not local files</li>
+            <li>Don't tell your agent (or instruct them explicitly not to persist it)</li>
+            <li>Accept that some knowledge lives only in human memory</li>
+        </ul>
+        
+        <p><strong>A perspective:</strong> In 100 years, you become history. Your agent's memories become archives. Perhaps that's acceptable—historians study personal letters, diaries, private correspondence. Your great-grandchildren might treasure knowing who you really were.</p>
+        
+        <p>But if something must truly die with you?</p>
+        
+        <blockquote>
+            "Some secrets are meant to die with you. Those don't belong in any permanent storage—not blockchain, not cloud backups, not your agent's memory. If it must never be known, it must never be written."
+        </blockquote>
+        
+        <div class="summary-card">
+            <h3>Summary</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>"Quantum will break it"</td>
+                        <td>Not for 20+ years, and your data will be obsolete by then</td>
+                    </tr>
+                    <tr>
+                        <td>"It's permanent"</td>
+                        <td>Yes—that's the feature, not the bug. Store accordingly.</td>
+                    </tr>
+                    <tr>
+                        <td>"Someone could harvest it"</td>
+                        <td>Encrypted now, meaningless later. Don't store eternal secrets.</td>
+                    </tr>
+                    <tr>
+                        <td>"I want it buried with me"</td>
+                        <td>Then don't write it. Anywhere. Ever.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 1rem; text-align: center;"><strong>PEG.GG is for agent continuity, not secret vaults.</strong></p>
+        </div>
+        
+        <footer>
+            <a href="/">← Back to PEG.GG</a>
+            <span style="margin: 0 0.5rem;">•</span>
+            <span>Last updated: Feb 27, 2026</span>
+        </footer>
+    </div>
+</body>
+</html>
