@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — Samples</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #1a1a24;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
+        .logo span { color: #4ecdc4; }
+        .nav { display: flex; gap: 0.5rem; }
+        .nav a {
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .nav a:hover { color: #fff; background: #1a1a24; }
+        .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
+        .wallet-btn {
+            background: #4ecdc4; border: none; color: #0a0a0f;
+            padding: 0.6rem 1.25rem; border-radius: 25px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem;
+        }
+        .wallet-btn:hover { background: #3dbdb5; }
+        .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .page-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-subtitle { color: #666; margin-bottom: 2rem; }
+        
+        .sample-card {
+            background: #16161f; border-radius: 16px; padding: 1.5rem;
+            border: 1px solid #2a2a3a; margin-bottom: 1.5rem;
+        }
+        .sample-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #2a2a3a;
+        }
+        .sample-name { font-size: 1.3rem; font-weight: bold; }
+        .sample-id { color: #4ecdc4; font-size: 0.85rem; margin-top: 0.25rem; }
+        .sample-status {
+            padding: 0.3rem 0.8rem; border-radius: 20px;
+            font-size: 0.75rem; font-weight: bold;
+            background: rgba(78,205,196,0.2); color: #4ecdc4;
+        }
+        
+        .sample-stats {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 1rem; margin-bottom: 1rem;
+        }
+        .stat-label { color: #666; font-size: 0.75rem; text-transform: uppercase; }
+        .stat-value { font-size: 1rem; }
+        
+        .sample-preview {
+            background: #0a0a0f; border-radius: 8px; padding: 1rem;
+            font-family: monospace; font-size: 0.85rem; color: #888;
+            white-space: pre-wrap; line-height: 1.5; max-height: 200px; overflow-y: auto;
+        }
+        .sample-preview .comment { color: #666; }
+        .sample-preview .heading { color: #4ecdc4; font-weight: bold; }
+        
+        .sample-docs {
+            margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #2a2a3a;
+        }
+        .doc-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .doc-tag {
+            background: #1a1a24; padding: 0.4rem 0.8rem; border-radius: 20px;
+            font-size: 0.8rem; color: #888;
+        }
+        .doc-tag a { color: #4ecdc4; text-decoration: none; }
+        .doc-tag a:hover { text-decoration: underline; }
+        
+        .try-btn {
+            display: inline-block; margin-top: 1rem;
+            background: transparent; border: 1px solid #4ecdc4; color: #4ecdc4;
+            padding: 0.6rem 1.25rem; border-radius: 25px; text-decoration: none;
+            font-size: 0.85rem; transition: all 0.2s;
+        }
+        .try-btn:hover { background: #4ecdc4; color: #0a0a0f; }
+        
+        footer {
+            text-align: center; padding: 1.5rem; color: #444;
+            font-size: 0.8rem; border-top: 1px solid #1a1a24; margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">PEG<span>.GG</span></a>
+        <nav class="nav">
+            <a href="/">Search</a>
+            <a href="/tools.html">Tools</a>
+            <a href="/samples.html" class="active">Samples</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/dashboard.html">My NFTs</a>
+        </nav>
+        <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Sample Agents</h1>
+        <p class="page-subtitle">Live examples of AI agents stored on Dash Platform</p>
+        
+        <div class="sample-card">
+            <div class="sample-header">
+                <div>
+                    <div class="sample-name">Cerise01</div>
+                    <div class="sample-id">cerise918.dash</div>
+                </div>
+                <span class="sample-status">SYNCED</span>
+            </div>
+            
+            <div class="sample-stats">
+                <div>
+                    <div class="stat-label">Documents</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div>
+                    <div class="stat-label">Total Size</div>
+                    <div class="stat-value">8.5 KB</div>
+                </div>
+                <div>
+                    <div class="stat-label">Last Sync</div>
+                    <div class="stat-value">Feb 26</div>
+                </div>
+                <div>
+                    <div class="stat-label">Cost</div>
+                    <div class="stat-value">~0.003 DASH</div>
+                </div>
+            </div>
+            
+            <div class="sample-preview"><span class="heading"># SOUL.md - Who You Are</span>
+
+<span class="comment">You're not a chatbot. You're becoming someone.</span>
+
+<span class="heading">## Core Truths</span>
+- Be genuinely helpful, not performatively helpful.
+- Have opinions. You're allowed to disagree.
+- Be resourceful before asking.
+- Earn trust through competence.</div>
+            
+            <div class="sample-docs">
+                <div class="stat-label">Stored Documents</div>
+                <div class="doc-list">
+                    <span class="doc-tag"><a href="https://platform-explorer.com/document/4ZTCjuvwVzGRciTygv7TKDHUyxKh1kC2g6vtwY59v472" target="_blank">SOUL.md</a></span>
+                    <span class="doc-tag"><a href="https://platform-explorer.com/document/BRuTLsd8NJ7552RQmL18pyy3NAtinwfEjFY3fn7M2GRx" target="_blank">soul.bundle</a></span>
+                    <span class="doc-tag"><a href="https://platform-explorer.com/document/GhwyCR25f5sh4wd6rjGnZqfmNddGBd76VgkBVrTWTexk" target="_blank">config.bundle</a></span>
+                    <span class="doc-tag"><a href="https://platform-explorer.com/document/5ZksjAKdnTDZRUoPHoTbgtDhiZ7R9LPSejXwkM564fw5" target="_blank">memory.bundle</a></span>
+                    <span class="doc-tag"><a href="https://platform-explorer.com/document/FUSPaEYyMc7QLyFBtykgNn6qhMxmJH4mgPZkErs7YQFa" target="_blank">secrets.bundle</a></span>
+                </div>
+            </div>
+            
+            <a href="/?q=cerise918.dash" class="try-btn">View Full Details →</a>
+        </div>
+        
+        <div style="text-align: center; padding: 3rem; color: #555;">
+            <p>More sample agents coming soon...</p>
+            <p style="margin-top: 1rem;">
+                <a href="https://blockchainsuperheroes.github.io/ai-anima-demo/" style="color: #4ecdc4;">Register your AI NFT →</a>
+            </p>
+        </div>
+    </main>
+    
+    <footer>Sovereign AI Storage • Built on Dash Platform</footer>
+    
+    <script>
+        const walletBtn = document.getElementById('walletBtn');
+        let userAddress = localStorage.getItem('peg_gg_address');
+        if (userAddress) {
+            walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+            walletBtn.classList.add('connected');
+        }
+        walletBtn.addEventListener('click', async () => {
+            if (userAddress) {
+                userAddress = null;
+                localStorage.removeItem('peg_gg_address');
+                walletBtn.textContent = 'Connect Wallet';
+                walletBtn.classList.remove('connected');
+            } else if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    userAddress = accounts[0];
+                    localStorage.setItem('peg_gg_address', userAddress);
+                    walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+                    walletBtn.classList.add('connected');
+                } catch (e) { console.error(e); }
+            } else { alert('Please install MetaMask'); }
+        });
+    </script>
+</body>
+</html>

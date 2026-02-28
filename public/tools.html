@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — Tools</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #1a1a24;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
+        .logo span { color: #4ecdc4; }
+        .nav { display: flex; gap: 0.5rem; }
+        .nav a {
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .nav a:hover { color: #fff; background: #1a1a24; }
+        .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
+        .wallet-btn {
+            background: #4ecdc4; border: none; color: #0a0a0f;
+            padding: 0.6rem 1.25rem; border-radius: 25px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem;
+        }
+        .wallet-btn:hover { background: #3dbdb5; }
+        .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .page-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-subtitle { color: #666; margin-bottom: 2rem; }
+        
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .tool-card {
+            background: #16161f; border-radius: 16px; padding: 1.5rem;
+            border: 1px solid #2a2a3a; transition: all 0.2s;
+        }
+        .tool-card:hover { border-color: #4ecdc4; transform: translateY(-2px); }
+        .tool-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .tool-name { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .tool-desc { color: #888; font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.5; }
+        .tool-status {
+            display: inline-block; padding: 0.25rem 0.75rem; border-radius: 20px;
+            font-size: 0.75rem; font-weight: bold;
+        }
+        .tool-status.live { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+        .tool-status.soon { background: rgba(245,166,35,0.2); color: #f5a623; }
+        .tool-status.planned { background: rgba(136,136,136,0.2); color: #888; }
+        
+        footer {
+            text-align: center; padding: 1.5rem; color: #444;
+            font-size: 0.8rem; border-top: 1px solid #1a1a24; margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">PEG<span>.GG</span></a>
+        <nav class="nav">
+            <a href="/">Search</a>
+            <a href="/tools.html" class="active">Tools</a>
+            <a href="/samples.html">Samples</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/dashboard.html">My NFTs</a>
+        </nav>
+        <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Tools</h1>
+        <p class="page-subtitle">Utilities for AI NFT management and storage</p>
+        
+        <div class="tool-grid">
+            <div class="tool-card">
+                <div class="tool-icon">🔍</div>
+                <div class="tool-name">Identity Lookup</div>
+                <div class="tool-desc">Search for any Dash identity or EVM address to view their AI agent storage status.</div>
+                <span class="tool-status live">LIVE</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">💾</div>
+                <div class="tool-name">Backup Agent</div>
+                <div class="tool-desc">Backup your AI agent's SOUL, memory, and config to Dash Platform with encryption.</div>
+                <span class="tool-status soon">COMING SOON</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">📥</div>
+                <div class="tool-name">Restore Agent</div>
+                <div class="tool-desc">Restore an AI agent from Dash Platform storage. Requires NFT ownership verification.</div>
+                <span class="tool-status soon">COMING SOON</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">💱</div>
+                <div class="tool-name">PC ↔ xDASH Swap</div>
+                <div class="tool-desc">Swap Pentagon Chain tokens for xDASH to fund agent storage.</div>
+                <span class="tool-status soon">COMING SOON</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">⛽</div>
+                <div class="tool-name">Identity Top-up</div>
+                <div class="tool-desc">Add credits to your Dash Platform identity for more document writes.</div>
+                <span class="tool-status soon">COMING SOON</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">🧬</div>
+                <div class="tool-name">Clone Agent</div>
+                <div class="tool-desc">Create a copy of your AI agent with a new identity. Original keeps all data.</div>
+                <span class="tool-status planned">PLANNED</span>
+            </div>
+        </div>
+    </main>
+    
+    <footer>Sovereign AI Storage • Built on Dash Platform</footer>
+    
+    <script>
+        const walletBtn = document.getElementById('walletBtn');
+        let userAddress = localStorage.getItem('peg_gg_address');
+        if (userAddress) {
+            walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+            walletBtn.classList.add('connected');
+        }
+        walletBtn.addEventListener('click', async () => {
+            if (userAddress) {
+                userAddress = null;
+                localStorage.removeItem('peg_gg_address');
+                walletBtn.textContent = 'Connect Wallet';
+                walletBtn.classList.remove('connected');
+            } else if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    userAddress = accounts[0];
+                    localStorage.setItem('peg_gg_address', userAddress);
+                    walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+                    walletBtn.classList.add('connected');
+                } catch (e) { console.error(e); }
+            } else { alert('Please install MetaMask'); }
+        });
+    </script>
+</body>
+</html>

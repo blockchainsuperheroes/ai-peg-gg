@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — Roadmap</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #1a1a24;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
+        .logo span { color: #4ecdc4; }
+        .nav { display: flex; gap: 0.5rem; }
+        .nav a {
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .nav a:hover { color: #fff; background: #1a1a24; }
+        .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
+        .wallet-btn {
+            background: #4ecdc4; border: none; color: #0a0a0f;
+            padding: 0.6rem 1.25rem; border-radius: 25px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem;
+        }
+        .wallet-btn:hover { background: #3dbdb5; }
+        .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .page-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-subtitle { color: #666; margin-bottom: 3rem; }
+        
+        /* Timeline */
+        .timeline { position: relative; padding-left: 2.5rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #4ecdc4 0%, #4ecdc4 30%, #333 30%, #333 100%);
+        }
+        
+        .phase {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        .phase::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.4rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #333;
+            border: 3px solid #0a0a0f;
+        }
+        .phase.complete::before { background: #4ecdc4; }
+        .phase.current::before { 
+            background: #4ecdc4;
+            box-shadow: 0 0 0 4px rgba(78,205,196,0.3);
+        }
+        
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .phase-title { font-size: 1.3rem; font-weight: bold; }
+        .phase-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .phase-status.done { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+        .phase-status.progress { background: rgba(245,166,35,0.2); color: #f5a623; }
+        .phase-status.upcoming { background: rgba(136,136,136,0.2); color: #888; }
+        
+        .phase-items {
+            background: #16161f;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border: 1px solid #2a2a3a;
+        }
+        .phase-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            color: #888;
+            font-size: 0.95rem;
+        }
+        .phase-item:not(:last-child) { border-bottom: 1px solid #2a2a3a; }
+        .phase-item.done { color: #fff; }
+        .phase-item .check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+        .phase-item.done .check { background: #4ecdc4; color: #0a0a0f; }
+        .phase-item:not(.done) .check { border: 2px solid #333; }
+        
+        footer {
+            text-align: center; padding: 1.5rem; color: #444;
+            font-size: 0.8rem; border-top: 1px solid #1a1a24; margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">PEG<span>.GG</span></a>
+        <nav class="nav">
+            <a href="/">Search</a>
+            <a href="/tools.html">Tools</a>
+            <a href="/samples.html">Samples</a>
+            <a href="/roadmap.html" class="active">Roadmap</a>
+            <a href="/dashboard.html">My NFTs</a>
+        </nav>
+        <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Roadmap</h1>
+        <p class="page-subtitle">Building sovereign AI storage, one milestone at a time</p>
+        
+        <div class="timeline">
+            <div class="phase complete">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 1: Foundation</div>
+                    <span class="phase-status done">COMPLETE</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Data contract deployed on Dash Platform</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Agent file storage schema (agentFile)</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>First agent backup written (cerise918.dash)</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Bundle format for multi-file storage</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>DPNS identity lookup integration</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase current">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 2: Infrastructure</div>
+                    <span class="phase-status progress">IN PROGRESS</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>PEG.GG frontend with search</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Web3 wallet connection</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Backend API (dashd node)</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>AES-256-GCM encryption for secrets</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>NFT ownership verification</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 3: xDASH Economy</div>
+                    <span class="phase-status upcoming">UPCOMING</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>xDASH ERC-20 deployment on Ethereum</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>PC:xDASH liquidity pool</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Automated identity top-up</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>EvoNode reward distribution</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 4: Agent Features</div>
+                    <span class="phase-status upcoming">UPCOMING</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Backup/restore flow in UI</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Agent cloning support</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Sync history and versioning</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Multi-chain AINFT support</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 5: PEG Token</div>
+                    <span class="phase-status upcoming">UPCOMING</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Retroactive airdrop snapshot</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Governance framework</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Staking rewards for LP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>Sovereign AI Storage • Built on Dash Platform</footer>
+    
+    <script>
+        const walletBtn = document.getElementById('walletBtn');
+        let userAddress = localStorage.getItem('peg_gg_address');
+        if (userAddress) {
+            walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+            walletBtn.classList.add('connected');
+        }
+        walletBtn.addEventListener('click', async () => {
+            if (userAddress) {
+                userAddress = null;
+                localStorage.removeItem('peg_gg_address');
+                walletBtn.textContent = 'Connect Wallet';
+                walletBtn.classList.remove('connected');
+            } else if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    userAddress = accounts[0];
+                    localStorage.setItem('peg_gg_address', userAddress);
+                    walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+                    walletBtn.classList.add('connected');
+                } catch (e) { console.error(e); }
+            } else { alert('Please install MetaMask'); }
+        });
+    </script>
+</body>
+</html>
