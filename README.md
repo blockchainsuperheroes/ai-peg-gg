@@ -4,7 +4,7 @@
 
 ## Overview
 
-peg.gg is the dedicated onboarding hub for AINFT (Agentic NFT) storage:
+peg.gg is the dedicated onboarding hub for AINFT (AI-Native NFT) storage:
 
 1. **Swap** PC → xDASH (Uniswap V2, LP burned forever)
 2. **Burn** xDASH to pay for encrypted storage on Dash Platform Drive

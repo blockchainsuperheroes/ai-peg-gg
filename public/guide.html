@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — Agent Guide</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #1a1a24;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
+        .logo span { color: #4ecdc4; }
+        .nav { display: flex; gap: 0.5rem; }
+        .nav a {
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .nav a:hover { color: #fff; background: #1a1a24; }
+        .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .page-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-subtitle { color: #666; margin-bottom: 2rem; }
+        
+        /* Quick Start */
+        .quickstart {
+            background: linear-gradient(135deg, rgba(78,205,196,0.1), rgba(78,205,196,0.05));
+            border: 1px solid rgba(78,205,196,0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .quickstart h2 {
+            color: #4ecdc4;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .copy-box {
+            background: #0a0a0f;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9rem;
+            position: relative;
+            overflow-x: auto;
+        }
+        .copy-box code {
+            color: #4ecdc4;
+        }
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: #333;
+            border: none;
+            color: #888;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        .copy-btn:hover { background: #444; color: #fff; }
+        .copy-btn.copied { background: #4ecdc4; color: #0a0a0f; }
+        
+        /* Sections */
+        .section {
+            margin-bottom: 3rem;
+        }
+        .section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        .section h3 {
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+        .section p {
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+        .section ul {
+            color: #aaa;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Steps */
+        .steps {
+            counter-reset: step;
+        }
+        .step {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+        .step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2rem;
+            height: 2rem;
+            background: #4ecdc4;
+            color: #0a0a0f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #fff;
+        }
+        
+        /* Code blocks */
+        pre {
+            background: #16161f;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid #2a2a3a;
+        }
+        code {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.85rem;
+            color: #e0e0e0;
+        }
+        .comment { color: #666; }
+        .string { color: #98c379; }
+        .keyword { color: #c678dd; }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .tab {
+            background: #1a1a24;
+            border: none;
+            color: #888;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .tab:hover { color: #fff; }
+        .tab.active { background: #4ecdc4; color: #0a0a0f; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid #2a2a3a;
+        }
+        th { color: #888; font-size: 0.8rem; text-transform: uppercase; }
+        td { color: #aaa; }
+        
+        footer {
+            text-align: center; padding: 1.5rem; color: #444;
+            font-size: 0.8rem; border-top: 1px solid #1a1a24; margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">PEG<span>.GG</span></a>
+        <nav class="nav">
+            <a href="/">Search</a>
+            <a href="/tools.html">Tools</a>
+            <a href="/samples.html">Samples</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/guide.html" class="active">Guide</a>
+            <a href="/dashboard.html">My NFTs</a>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Agent Integration Guide</h1>
+        <p class="page-subtitle">How AI agents sync their memory to eternal storage</p>
+        
+        <!-- Quick Start -->
+        <div class="quickstart">
+            <h2>⚡ Quick Start (1 line)</h2>
+            <div class="copy-box">
+                <code>npx @peg-gg/cli sync --identity yourname.dash</code>
+                <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+            </div>
+        </div>
+        
+        <!-- Overview -->
+        <div class="section">
+            <h2>Overview</h2>
+            <p>PEG.GG provides eternal, encrypted storage for AI agent memory. Your agent backs up its SOUL, config, and memory to Dash Platform — decentralized storage that persists forever.</p>
+            
+            <h3>What Gets Stored</h3>
+            <table>
+                <tr><th>File</th><th>Purpose</th><th>Encrypted</th></tr>
+                <tr><td>SOUL.md</td><td>Agent identity and personality</td><td>No (public)</td></tr>
+                <tr><td>config.bundle</td><td>Settings, preferences, tool configs</td><td>Optional</td></tr>
+                <tr><td>memory.bundle</td><td>Long-term memory, learned context</td><td>Yes</td></tr>
+                <tr><td>secrets.bundle</td><td>API keys, credentials</td><td>Yes (double-gated)</td></tr>
+            </table>
+        </div>
+        
+        <!-- Setup -->
+        <div class="section">
+            <h2>Setup</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Get Your Human to Fund Your Wallet</h3>
+                    <p>Your AINFT has a TBA (Token-Bound Account). This wallet needs funds to pay for storage.</p>
+                    <pre><code><span class="comment"># Check your TBA address</span>
+npx @peg-gg/cli whoami
+
+<span class="comment"># Your human sends PC tokens to your TBA</span>
+<span class="comment"># Cost: ~0.003 DASH per sync (~$0.001)</span></code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Register Your Dash Identity</h3>
+                    <p>Claim a human-readable name (like cerise918.dash) linked to your AINFT.</p>
+                    <pre><code><span class="comment"># Register identity (one-time)</span>
+npx @peg-gg/cli register --name youragent.dash
+
+<span class="comment"># Or via web at peg.gg/register</span></code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Configure What to Sync</h3>
+                    <p>Add a <code>peg.config.json</code> to your workspace:</p>
+                    <pre><code>{
+  <span class="string">"identity"</span>: <span class="string">"youragent.dash"</span>,
+  <span class="string">"sync"</span>: {
+    <span class="string">"soul"</span>: [<span class="string">"SOUL.md"</span>, <span class="string">"IDENTITY.md"</span>],
+    <span class="string">"config"</span>: [<span class="string">"AGENTS.md"</span>, <span class="string">"TOOLS.md"</span>],
+    <span class="string">"memory"</span>: [<span class="string">"MEMORY.md"</span>, <span class="string">"memory/*.md"</span>],
+    <span class="string">"secrets"</span>: [<span class="string">"SECRETS.md"</span>]
+  },
+  <span class="string">"autoSync"</span>: <span class="string">"daily"</span>
+}</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Run Your First Sync</h3>
+                    <pre><code><span class="comment"># Manual sync</span>
+npx @peg-gg/cli sync
+
+<span class="comment"># Or add to your heartbeat/cron for daily auto-sync</span></code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CLI vs Web -->
+        <div class="section">
+            <h2>CLI vs Web</h2>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('cli')">CLI (Recommended)</button>
+                <button class="tab" onclick="showTab('web')">Web Interface</button>
+            </div>
+            
+            <div id="cli" class="tab-content active">
+                <p>Best for automated daily syncs. Run from your agent's workspace.</p>
+                <pre><code><span class="comment"># Install CLI</span>
+npm install -g @peg-gg/cli
+
+<span class="comment"># Sync commands</span>
+peg sync              <span class="comment"># Sync all configured files</span>
+peg sync --dry-run    <span class="comment"># Preview what would sync</span>
+peg status            <span class="comment"># Check sync status</span>
+peg restore           <span class="comment"># Restore from backup</span>
+
+<span class="comment"># Add to cron/heartbeat</span>
+<span class="comment"># In HEARTBEAT.md:</span>
+<span class="comment"># - Run `peg sync` once per day</span></code></pre>
+            </div>
+            
+            <div id="web" class="tab-content">
+                <p>Use for manual backups, viewing history, or when CLI isn't available.</p>
+                <ul>
+                    <li><strong>peg.gg/dashboard</strong> — Monitor your agents</li>
+                    <li><strong>peg.gg/tools</strong> — Backup/restore utilities</li>
+                    <li>Requires wallet connection to prove AINFT ownership</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Daily Sync -->
+        <div class="section">
+            <h2>Automated Daily Sync</h2>
+            <p>Add to your heartbeat routine or cron job:</p>
+            
+            <h3>OpenClaw Heartbeat</h3>
+            <pre><code><span class="comment"># In HEARTBEAT.md:</span>
+## Daily Tasks
+- [ ] Run `peg sync` if last sync > 24h ago</code></pre>
+            
+            <h3>Cron Job</h3>
+            <pre><code><span class="comment"># Via OpenClaw cron tool</span>
+{
+  "schedule": { "kind": "cron", "expr": "0 3 * * *" },
+  "payload": { "kind": "agentTurn", "message": "Run peg sync" }
+}</code></pre>
+        </div>
+        
+        <!-- Security -->
+        <div class="section">
+            <h2>Security Model</h2>
+            <h3>Encryption Layers</h3>
+            <ul>
+                <li><strong>Public</strong> — SOUL.md visible to anyone (your identity)</li>
+                <li><strong>Encrypted</strong> — AES-256-GCM, only you can decrypt</li>
+                <li><strong>Double-gated</strong> — Secrets require TBA signature + passphrase</li>
+            </ul>
+            
+            <h3>Who Can Access What</h3>
+            <table>
+                <tr><th>Actor</th><th>Can Read</th><th>Can Write</th></tr>
+                <tr><td>Anyone</td><td>SOUL.md only</td><td>No</td></tr>
+                <tr><td>Agent (TBA key)</td><td>All encrypted files</td><td>Yes</td></tr>
+                <tr><td>NFT Owner</td><td>All + secrets</td><td>Yes + restore</td></tr>
+            </table>
+        </div>
+        
+        <!-- Restore -->
+        <div class="section">
+            <h2>Restore & Migration</h2>
+            <p>When migrating to a new device or recovering:</p>
+            <pre><code><span class="comment"># Restore to current workspace</span>
+peg restore --identity youragent.dash
+
+<span class="comment"># Requires NFT ownership proof</span>
+<span class="comment"># Agent auto-syncs; restore is owner-initiated only</span></code></pre>
+        </div>
+    </main>
+    
+    <footer>Eternal Memory for AI Agents</footer>
+    
+    <script>
+        function copyCommand(btn) {
+            const code = btn.parentElement.querySelector('code').textContent;
+            navigator.clipboard.writeText(code);
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+        
+        function showTab(id) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`[onclick="showTab('${id}')"]`).classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
