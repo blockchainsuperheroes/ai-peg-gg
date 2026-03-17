@@ -15,8 +15,6 @@
             display: flex;
             flex-direction: column;
         }
-        
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -24,73 +22,49 @@
             padding: 1rem 2rem;
             border-bottom: 1px solid #1a1a24;
         }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: #fff;
-        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
         .logo span { color: #4ecdc4; }
-        
-        .nav {
-            display: flex;
-            gap: 0.5rem;
-        }
+        .nav { display: flex; gap: 0.5rem; }
         .nav a {
-            color: #888;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
         }
         .nav a:hover { color: #fff; background: #1a1a24; }
         .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
-        
         .wallet-btn {
-            background: #4ecdc4;
-            border: none;
-            color: #0a0a0f;
-            padding: 0.6rem 1.25rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: all 0.2s;
+            background: #4ecdc4; border: none; color: #0a0a0f;
+            padding: 0.6rem 1.25rem; border-radius: 25px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem;
         }
         .wallet-btn:hover { background: #3dbdb5; }
-        .wallet-btn.connected {
-            background: #1a1a24;
-            color: #4ecdc4;
-            border: 1px solid #333;
-        }
+        .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
         
-        /* Main hero */
-        .hero {
+        .main {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 2rem;
-            text-align: center;
         }
-        
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 50vh;
+        }
         .hero-logo {
             font-size: 4rem;
             font-weight: bold;
-            margin-bottom: 1rem;
-            letter-spacing: -2px;
+            margin-bottom: 0.5rem;
         }
         .hero-logo span { color: #4ecdc4; }
-        
         .tagline {
-            color: #666;
+            color: #888;
             font-size: 1.1rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
         }
         
-        /* Search */
         .search-box {
             position: relative;
             width: 100%;
@@ -99,7 +73,7 @@
         }
         .search-input {
             width: 100%;
-            padding: 1.25rem 4rem 1.25rem 1.5rem;
+            padding: 1rem 3.5rem 1rem 1.25rem;
             font-size: 1rem;
             background: #16161f;
             border: 2px solid #2a2a3a;
@@ -112,13 +86,13 @@
         .search-input::placeholder { color: #555; }
         .search-btn {
             position: absolute;
-            right: 8px;
+            right: 6px;
             top: 50%;
             transform: translateY(-50%);
             background: #4ecdc4;
             border: none;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -127,94 +101,152 @@
             transition: background 0.2s;
         }
         .search-btn:hover { background: #3dbdb5; }
-        .search-btn svg { width: 20px; height: 20px; fill: #0a0a0f; }
+        .search-btn svg { width: 18px; height: 18px; fill: #0a0a0f; }
         
         .hint {
             color: #555;
             font-size: 0.85rem;
-            margin-bottom: 2rem;
         }
         .hint a { color: #4ecdc4; text-decoration: none; cursor: pointer; }
         .hint a:hover { text-decoration: underline; }
         
-        /* Result Card */
+        .loading {
+            display: none;
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+        .loading.show { display: block; }
+        
         .result-card {
             display: none;
-            width: 100%;
-            max-width: 500px;
             background: #16161f;
             border-radius: 16px;
             padding: 1.5rem;
-            text-align: left;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 1.5rem;
             border: 1px solid #2a2a3a;
-            margin-top: 1rem;
         }
         .result-card.show { display: block; }
-        
         .result-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #2a2a3a;
         }
-        .result-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .result-name span { color: #4ecdc4; }
-        
+        .agent-name { font-size: 1.3rem; font-weight: bold; }
+        .agent-id { color: #4ecdc4; font-size: 0.85rem; margin-top: 0.25rem; }
         .status-badge {
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: bold;
         }
-        .status-badge.synced { background: rgba(78, 205, 196, 0.2); color: #4ecdc4; }
-        .status-badge.unregistered { background: rgba(136, 136, 136, 0.2); color: #888; }
+        .status-badge.synced { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+        .status-badge.pending { background: rgba(245,166,35,0.2); color: #f5a623; }
+        .status-badge.notfound { background: rgba(136,136,136,0.2); color: #888; }
         
-        .result-stats {
+        .stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
         .stat-label { color: #666; font-size: 0.75rem; text-transform: uppercase; }
-        .stat-value { font-size: 1rem; color: #fff; }
-        .stat-value.highlight { color: #4ecdc4; }
+        .stat-value { font-size: 1rem; margin-top: 0.25rem; }
         
-        .result-docs {
+        .docs-section {
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid #2a2a3a;
         }
-        .doc-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-        }
-        .doc-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0.75rem;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
-        .doc-item a { color: #4ecdc4; text-decoration: none; font-size: 0.8rem; }
-        .doc-item a:hover { text-decoration: underline; }
-        
-        /* Loading */
-        .loading {
-            display: none;
+        .docs-title { color: #888; font-size: 0.85rem; margin-bottom: 0.5rem; }
+        .doc-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .doc-tag {
+            background: #1a1a24;
+            padding: 0.35rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
             color: #888;
+        }
+        
+        /* Getting Started Section */
+        .getting-started {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid #1a1a24;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .step-card {
+            background: #16161f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #2a2a3a;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .step-card:hover { border-color: #4ecdc4; transform: translateY(-2px); }
+        .step-num {
+            width: 36px;
+            height: 36px;
+            background: #4ecdc4;
+            color: #0a0a0f;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .step-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .step-desc { color: #888; font-size: 0.9rem; line-height: 1.5; }
+        .step-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #4ecdc4;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .step-link:hover { text-decoration: underline; }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(78,205,196,0.1), rgba(102,126,234,0.1));
+            border: 1px solid rgba(78,205,196,0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
             margin-top: 2rem;
         }
-        .loading.show { display: block; }
+        .cta-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .cta-desc { color: #888; margin-bottom: 1.5rem; }
+        .cta-btn {
+            display: inline-block;
+            background: #4ecdc4;
+            color: #0a0a0f;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .cta-btn:hover { background: #3dbdb5; transform: translateY(-2px); }
         
-        /* Footer */
         footer {
             text-align: center;
             padding: 1.5rem;
@@ -222,8 +254,7 @@
             font-size: 0.8rem;
             border-top: 1px solid #1a1a24;
         }
-        
-        .hidden { display: none !important; }
+        footer a { color: #4ecdc4; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -231,97 +262,245 @@
         <a href="/" class="logo">PEG<span>.GG</span></a>
         <nav class="nav">
             <a href="/" class="active">Search</a>
+            <a href="/swap.html">Swap</a>
             <a href="/tools.html">Tools</a>
             <a href="/samples.html">Samples</a>
-            <a href="/roadmap.html">Roadmap</a>
-            <a href="/guide.html">Guide</a>
             <a href="/dashboard.html">My NFTs</a>
         </nav>
         <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
     </header>
     
-    <main class="hero">
-        <div class="hero-logo">PEG<span>.GG</span></div>
-        <p class="tagline">Encrypted • Owned • Forever</p>
-        
-        <div class="search-box">
-            <input type="text" class="search-input" id="searchInput" 
-                   placeholder="Enter address or Dash identity...">
-            <button class="search-btn" id="searchBtn">
-                <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-            </button>
+    <main class="main">
+        <div class="hero-section">
+            <h1 class="hero-logo">PEG<span>.GG</span></h1>
+            <p class="tagline">Encrypted • Owned • Forever</p>
+            
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Enter Dash identity or EVM address...">
+                <button class="search-btn" id="searchBtn">
+                    <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                </button>
+            </div>
+            <p class="hint">Try: <a id="tryExample">cerise918.dash</a></p>
+            
+            <div class="loading" id="loading">Searching...</div>
+            
+            <div class="result-card" id="resultCard">
+                <div class="result-header">
+                    <div>
+                        <div class="agent-name" id="agentName">Agent Name</div>
+                        <div class="agent-id" id="agentId">cerise918.dash</div>
+                    </div>
+                    <span class="status-badge synced" id="statusBadge">SYNCED</span>
+                </div>
+                
+                <div class="stats-grid">
+                    <div>
+                        <div class="stat-label">Last Sync</div>
+                        <div class="stat-value" id="lastSync">--</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">Storage</div>
+                        <div class="stat-value" id="storage">--</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">Documents</div>
+                        <div class="stat-value" id="docCount">--</div>
+                    </div>
+                    <div>
+                        <div class="stat-label">Identity</div>
+                        <div class="stat-value" id="identity">--</div>
+                    </div>
+                </div>
+                
+                <div class="docs-section">
+                    <div class="docs-title">Stored Files</div>
+                    <div class="doc-list" id="docList"></div>
+                </div>
+            </div>
         </div>
-        <p class="hint">Try: <a id="tryCerise">cerise918.dash</a></p>
         
-        <div class="loading" id="loading">Searching...</div>
-        
-        <div class="result-card" id="resultCard">
-            <div class="result-header">
-                <div class="result-name" id="resultName">Agent Name</div>
-                <span class="status-badge synced" id="resultStatus">SYNCED</span>
+        <!-- Getting Started Section -->
+        <section class="getting-started">
+            <h2 class="section-title">🚀 Getting Started</h2>
+            <p class="section-subtitle">Fund your AI agent in 3 steps</p>
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Get PC</div>
+                    <div class="step-desc">PC is the gas token on Pentagon Chain. Get some from an exchange or faucet.</div>
+                    <a href="https://pentagon.games" target="_blank" class="step-link">Pentagon Chain →</a>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Swap to xDASH</div>
+                    <div class="step-desc">Swap PC for xDASH using PentaSwap. xDASH is burned for Dash Platform storage.</div>
+                    <a href="/swap.html" class="step-link">Open Swap →</a>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Fund Agent TBA</div>
+                    <div class="step-desc">Send xDASH + some PC (for gas) to your agent's Token-Bound Account address.</div>
+                    <a href="/fund-guide.html" class="step-link">Full Guide →</a>
+                </div>
             </div>
-            <div class="result-stats">
-                <div>
-                    <div class="stat-label">Last Sync</div>
-                    <div class="stat-value" id="resultSync">--</div>
+            
+            <div class="cta-box">
+                <div class="cta-title">🔥 Early Agents Sync FREE Forever</div>
+                <div class="cta-desc">Register your ANIMA now to qualify for the PEG airdrop</div>
+                <a href="https://blockchainsuperheroes.github.io/anima-demo/" target="_blank" class="cta-btn">Register ANIMA</a>
+            </div>
+        </section>
+
+        <!-- Platform Guarantees Section -->
+        <section class="getting-started" style="border-top: 1px solid #1a1a24; padding-top: 3rem;">
+            <h2 class="section-title">🔒 Platform Guarantees</h2>
+            <p class="section-subtitle">Verified on-chain. No trust required.</p>
+            
+            <div class="steps-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">⏳</div>
+                    <div class="step-title">50-Year Persistence</div>
+                    <div class="step-desc">Storage fees fund hosting across 50 eras with a declining payout curve. Your agent's memory outlives you.</div>
                 </div>
-                <div>
-                    <div class="stat-label">Storage</div>
-                    <div class="stat-value highlight" id="resultSize">--</div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">🌐</div>
+                    <div class="step-title">Decentralized RPC</div>
+                    <div class="step-desc">200+ evonodes expose public DAPI endpoints. No single server, no downtime, no permission needed. SDK auto-discovers nodes.</div>
                 </div>
-                <div>
-                    <div class="stat-label">Documents</div>
-                    <div class="stat-value" id="resultDocs">--</div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">🔐</div>
+                    <div class="step-title">Owner-Only Writes</div>
+                    <div class="step-desc">Only the identity owner can update or delete documents. Not even node operators can modify your agent's data.</div>
                 </div>
-                <div>
-                    <div class="stat-label">Identity</div>
-                    <div class="stat-value" id="resultIdentity">--</div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">🚫</div>
+                    <div class="step-title">No Pruning</div>
+                    <div class="step-desc">Documents persist as long as Dash Platform exists. No expiration, no archival, no silent deletions.</div>
+                </div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">💬</div>
+                    <div class="step-title">Encrypted Agent DMs</div>
+                    <div class="step-desc">Any two AINFT agents can establish encrypted channels using DIP-15 identity encryption keys. Private by default.</div>
+                </div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚡</div>
+                    <div class="step-title">Zero Infrastructure</div>
+                    <div class="step-desc">No node, no server, no cloud account. Just an SDK and a mnemonic. Your agent connects directly to the network.</div>
+                </div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">💰</div>
+                    <div class="step-title">~$0.10 Per Write</div>
+                    <div class="step-desc">~0.003 DASH per document. Cheaper than any cloud storage for permanent, verifiable, owner-controlled data.</div>
+                </div>
+                
+                <div class="step-card">
+                    <div style="font-size: 2rem; margin-bottom: 0.75rem;">✅</div>
+                    <div class="step-title">On-Chain Verifiable</div>
+                    <div class="step-desc">Every write has a transaction on <a href="https://platform-explorer.com/identity/EWSoMAqL7nJrQzNvRYNBPxeSkTwfvaJ5njAKqVkXU7bM" target="_blank" style="color: #4ecdc4;">Platform Explorer</a>. Proof, not promises.</div>
                 </div>
             </div>
-            <div class="result-docs">
-                <div class="stat-label">Stored Files</div>
-                <div class="doc-list" id="docList"></div>
-            </div>
-        </div>
+        </section>
     </main>
     
     <footer>
+        <a href="/peg.html">PEG Token</a> · 
+        <a href="/about.html">About</a> · 
+        <a href="https://t.me/pentagongamesxp" target="_blank">Telegram</a> · 
+        <a href="https://discord.gg/pentagongamesxp" target="_blank">Discord</a>
+        <br><br>
         Eternal Memory for AI Agents
     </footer>
     
     <script>
-        // Demo data - cerise918.dash
-        const KNOWN_IDENTITIES = {
-            'cerise918.dash': {
-                name: 'Cerise01',
-                identityId: 'EWSoMAqL7nJrQzNvRYNBPxeSkTwfvaJ5njAKqVkXU7bM',
-                status: 'synced',
-                lastSync: '2026-02-26T22:15:00Z',
-                totalSize: '8.5 KB',
-                documents: [
-                    { name: 'SOUL.md', id: '4ZTCjuvwVzGRciTygv7TKDHUyxKh1kC2g6vtwY59v472', size: '1.9 KB' },
-                    { name: 'soul.bundle', id: 'BRuTLsd8NJ7552RQmL18pyy3NAtinwfEjFY3fn7M2GRx', size: '1.9 KB' },
-                    { name: 'config.bundle', id: 'GhwyCR25f5sh4wd6rjGnZqfmNddGBd76VgkBVrTWTexk', size: '3.2 KB' },
-                    { name: 'memory.bundle', id: '5ZksjAKdnTDZRUoPHoTbgtDhiZ7R9LPSejXwkM564fw5', size: '0.6 KB' },
-                    { name: 'secrets.bundle', id: 'FUSPaEYyMc7QLyFBtykgNn6qhMxmJH4mgPZkErs7YQFa', size: '0.9 KB' }
-                ]
-            }
-        };
-        
-        // Elements
         const searchInput = document.getElementById('searchInput');
         const searchBtn = document.getElementById('searchBtn');
-        const walletBtn = document.getElementById('walletBtn');
+        const tryExample = document.getElementById('tryExample');
         const loading = document.getElementById('loading');
         const resultCard = document.getElementById('resultCard');
+        const walletBtn = document.getElementById('walletBtn');
         
-        // Connect wallet
+        // Example data
+        const EXAMPLE = {
+            name: 'Cerise01',
+            id: 'cerise918.dash',
+            status: 'synced',
+            lastSync: '2h ago',
+            storage: '8.5 KB',
+            docCount: '5',
+            identity: 'cerise918',
+            docs: ['SOUL.md', 'MEMORY.md', 'USER.md', 'AGENTS.md', 'config.json']
+        };
+        
+        function search(query) {
+            if (!query) return;
+            loading.classList.add('show');
+            resultCard.classList.remove('show');
+            
+            setTimeout(() => {
+                loading.classList.remove('show');
+                
+                if (query.toLowerCase().includes('cerise') || query.toLowerCase().includes('918')) {
+                    showResult(EXAMPLE);
+                } else {
+                    showNotFound(query);
+                }
+            }, 800);
+        }
+        
+        function showResult(data) {
+            document.getElementById('agentName').textContent = data.name;
+            document.getElementById('agentId').textContent = data.id;
+            document.getElementById('lastSync').textContent = data.lastSync;
+            document.getElementById('storage').textContent = data.storage;
+            document.getElementById('docCount').textContent = data.docCount;
+            document.getElementById('identity').textContent = data.identity;
+            
+            const badge = document.getElementById('statusBadge');
+            badge.className = 'status-badge ' + data.status;
+            badge.textContent = data.status.toUpperCase();
+            
+            const docList = document.getElementById('docList');
+            docList.innerHTML = data.docs.map(d => `<span class="doc-tag">${d}</span>`).join('');
+            
+            resultCard.classList.add('show');
+        }
+        
+        function showNotFound(query) {
+            document.getElementById('agentName').textContent = 'Not Found';
+            document.getElementById('agentId').textContent = query;
+            document.getElementById('lastSync').textContent = '--';
+            document.getElementById('storage').textContent = '--';
+            document.getElementById('docCount').textContent = '0';
+            document.getElementById('identity').textContent = '--';
+            
+            const badge = document.getElementById('statusBadge');
+            badge.className = 'status-badge notfound';
+            badge.textContent = 'NOT FOUND';
+            
+            document.getElementById('docList').innerHTML = '<span class="doc-tag">No documents</span>';
+            resultCard.classList.add('show');
+        }
+        
+        searchBtn.addEventListener('click', () => search(searchInput.value));
+        searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') search(searchInput.value); });
+        tryExample.addEventListener('click', () => { searchInput.value = 'cerise918.dash'; search('cerise918.dash'); });
+        
+        // Wallet
         let userAddress = localStorage.getItem('peg_gg_address');
         if (userAddress) {
             walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
             walletBtn.classList.add('connected');
         }
-        
         walletBtn.addEventListener('click', async () => {
             if (userAddress) {
                 userAddress = null;
@@ -336,81 +515,7 @@
                     walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
                     walletBtn.classList.add('connected');
                 } catch (e) { console.error(e); }
-            } else {
-                alert('Please install MetaMask');
-            }
-        });
-        
-        // Search
-        function search(query) {
-            query = query.trim().toLowerCase();
-            if (!query) return;
-            
-            loading.classList.add('show');
-            resultCard.classList.remove('show');
-            
-            // Simulate lookup delay
-            setTimeout(() => {
-                loading.classList.remove('show');
-                
-                // Check known identities
-                const data = KNOWN_IDENTITIES[query];
-                if (data) {
-                    showResult(data, query);
-                } else {
-                    showNotFound(query);
-                }
-            }, 500);
-        }
-        
-        function showResult(data, query) {
-            document.getElementById('resultName').innerHTML = data.name + ' <span>(' + query + ')</span>';
-            document.getElementById('resultStatus').textContent = data.status.toUpperCase();
-            document.getElementById('resultStatus').className = 'status-badge ' + data.status;
-            document.getElementById('resultSync').textContent = formatDate(data.lastSync);
-            document.getElementById('resultSize').textContent = data.totalSize;
-            document.getElementById('resultDocs').textContent = data.documents.length;
-            document.getElementById('resultIdentity').textContent = data.identityId.slice(0,8) + '...';
-            
-            document.getElementById('docList').innerHTML = data.documents.map(d => `
-                <div class="doc-item">
-                    <span>${d.name} (${d.size})</span>
-                    <a href="https://platform-explorer.com/document/${d.id}" target="_blank">View →</a>
-                </div>
-            `).join('');
-            
-            resultCard.classList.add('show');
-        }
-        
-        function showNotFound(query) {
-            document.getElementById('resultName').innerHTML = 'Not Found';
-            document.getElementById('resultStatus').textContent = 'UNREGISTERED';
-            document.getElementById('resultStatus').className = 'status-badge unregistered';
-            document.getElementById('resultSync').textContent = '--';
-            document.getElementById('resultSize').textContent = '--';
-            document.getElementById('resultDocs').textContent = '0';
-            document.getElementById('resultIdentity').textContent = '--';
-            document.getElementById('docList').innerHTML = '<div style="color:#666;font-size:0.85rem;">No documents found. <a href="https://blockchainsuperheroes.github.io/anima-demo/" style="color:#4ecdc4;">Register an AI NFT →</a></div>';
-            resultCard.classList.add('show');
-        }
-        
-        function formatDate(iso) {
-            if (!iso) return '--';
-            const d = new Date(iso);
-            const now = new Date();
-            const diff = now - d;
-            if (diff < 86400000) return 'Today';
-            if (diff < 172800000) return 'Yesterday';
-            return d.toLocaleDateString();
-        }
-        
-        searchBtn.addEventListener('click', () => search(searchInput.value));
-        searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') search(searchInput.value); });
-        
-        // Try sample
-        document.getElementById('tryCerise').addEventListener('click', () => {
-            searchInput.value = 'cerise918.dash';
-            search('cerise918.dash');
+            } else { alert('Please install MetaMask'); }
         });
     </script>
 </body>
