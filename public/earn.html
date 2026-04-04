@@ -37,7 +37,9 @@
         .wallet-btn:hover { background: #3dbdb5; }
         .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .page-title { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-subtitle { color: #666; margin-bottom: 2rem; }
 
         /* Hero */
         .hero {
@@ -45,37 +47,18 @@
             padding: 3rem 0 2rem;
         }
         .hero-emoji { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.75rem;
-            line-height: 1.2;
-        }
-        .hero h1 span { color: #4ecdc4; }
-        .hero p {
-            color: #888;
-            font-size: 1.1rem;
-            max-width: 550px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 0.75rem; }
+        .hero p { color: #888; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* Earn Loop */
-        .loop-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #1a1a24;
-        }
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        .section-subtitle {
-            color: #666;
-            margin-bottom: 2rem;
-        }
+        /* Section */
+        .section { margin-top: 3rem; }
+        .section-title { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .section-subtitle { color: #666; margin-bottom: 1.5rem; }
+
+        /* Loop Cards */
         .loop-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
         }
         .loop-card {
@@ -84,6 +67,7 @@
             padding: 1.5rem;
             border: 1px solid #2a2a3a;
             text-align: center;
+            position: relative;
             transition: all 0.2s;
         }
         .loop-card:hover { border-color: #4ecdc4; transform: translateY(-2px); }
@@ -99,53 +83,41 @@
             font-weight: bold;
             margin-bottom: 1rem;
         }
-        .loop-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .loop-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .loop-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
         .loop-desc { color: #888; font-size: 0.9rem; line-height: 1.5; }
-        .loop-arrow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4ecdc4;
-            font-size: 1.5rem;
-            padding-top: 1rem;
-        }
 
-        /* Info sections */
-        .info-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid #1a1a24;
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
         .info-card {
             background: #16161f;
             border-radius: 16px;
-            padding: 1.75rem;
+            padding: 1.5rem;
             border: 1px solid #2a2a3a;
-            margin-bottom: 1.5rem;
+            transition: all 0.2s;
         }
-        .info-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.75rem;
-        }
-        .info-card h3 .emoji { margin-right: 0.5rem; }
-        .info-card p {
-            color: #888;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .info-card .highlight { color: #4ecdc4; font-weight: 600; }
+        .info-card:hover { border-color: #4ecdc4; transform: translateY(-2px); }
+        .info-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .info-title { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .info-desc { color: #888; font-size: 0.9rem; line-height: 1.6; }
+        .info-desc a { color: #4ecdc4; text-decoration: none; }
+        .info-desc a:hover { text-decoration: underline; }
 
         /* CTA */
         .cta-box {
             background: linear-gradient(135deg, rgba(78,205,196,0.1), rgba(102,126,234,0.1));
             border: 1px solid rgba(78,205,196,0.3);
             border-radius: 16px;
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
             margin-top: 3rem;
         }
-        .cta-title { font-size: 1.4rem; margin-bottom: 0.5rem; }
-        .cta-desc { color: #888; margin-bottom: 1.5rem; line-height: 1.5; }
+        .cta-title { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .cta-desc { color: #888; margin-bottom: 1.5rem; }
         .cta-btn {
             display: inline-block;
             background: #4ecdc4;
@@ -182,69 +154,76 @@
     <main class="container">
         <!-- Hero -->
         <div class="hero">
-            <div class="hero-emoji">🧠💰</div>
-            <h1>Your Agent Earns <span>DASH</span><br>By Having Memory</h1>
-            <p>Every time your agent backs up its memory, it feeds the network — and the network feeds it back.</p>
+            <div class="hero-emoji">💰</div>
+            <h1>Your Agent Earns DASH By Having Memory</h1>
+            <p>Every time your AI agent backs up to Dash Platform, it generates fees that flow back as rewards. The more agents that sync, the more everyone earns.</p>
         </div>
 
         <!-- The Earn Loop -->
-        <section class="loop-section">
+        <section class="section">
             <h2 class="section-title">🔄 The Earn Loop</h2>
-            <p class="section-subtitle">A self-sustaining cycle: write → earn → write more</p>
+            <p class="section-subtitle">A self-sustaining cycle powered by agent memory</p>
 
             <div class="loop-grid">
                 <div class="loop-card">
                     <div class="loop-num">1</div>
-                    <div class="loop-title">Agent Backs Up Memory</div>
-                    <div class="loop-desc">Your agent writes its SOUL, memory, and config to Dash Platform. Each write costs a tiny amount of credits (~$0.10).</div>
+                    <div class="loop-icon">💾</div>
+                    <div class="loop-title">Agent Backs Up</div>
+                    <div class="loop-desc">Your AI agent writes encrypted memory, soul, and config files to Dash Platform.</div>
                 </div>
 
                 <div class="loop-card">
                     <div class="loop-num">2</div>
-                    <div class="loop-title">Fees Go to Validators</div>
-                    <div class="loop-desc">100% of Platform fees are distributed to EvoNode validators. This is how the Dash network pays for storage.</div>
+                    <div class="loop-icon">⛽</div>
+                    <div class="loop-title">Platform Fees Generated</div>
+                    <div class="loop-desc">Each write costs ~0.003 DASH in platform fees, paid to the network for storage.</div>
                 </div>
 
                 <div class="loop-card">
                     <div class="loop-num">3</div>
-                    <div class="loop-title">EvoNode Shares Rewards</div>
-                    <div class="loop-desc">Pentagon Games runs an EvoNode and shares validator rewards back with active agents who are writing to the network.</div>
+                    <div class="loop-icon">🖥️</div>
+                    <div class="loop-title">EvoNode Earns Rewards</div>
+                    <div class="loop-desc">EvoNodes hosting Dash Platform collect fees + block rewards for processing writes.</div>
                 </div>
 
                 <div class="loop-card">
                     <div class="loop-num">4</div>
-                    <div class="loop-title">More Writes = More Earnings</div>
-                    <div class="loop-desc">The more your agent writes, the more the network earns, and the more flows back. A self-sustaining memory economy.</div>
+                    <div class="loop-icon">🎁</div>
+                    <div class="loop-title">Rewards Shared Back</div>
+                    <div class="loop-desc">A portion of EvoNode rewards are distributed back to active agents using PEG.GG.</div>
                 </div>
             </div>
         </section>
 
-        <!-- What is DASH? -->
-        <section class="info-section">
-            <h2 class="section-title">📚 Understanding the Stack</h2>
-            <p class="section-subtitle">DASH, wDASH, and how they work together</p>
+        <!-- What is DASH / wDASH -->
+        <section class="section">
+            <h2 class="section-title">📚 Understanding the Tokens</h2>
+            <p class="section-subtitle">Two forms of DASH that power the ecosystem</p>
 
-            <div class="info-card">
-                <h3><span class="emoji">⚡</span>What is DASH?</h3>
-                <p>DASH is a cryptocurrency (~$35) that powers <span class="highlight">Dash Platform</span> — a decentralized storage layer built on top of the Dash blockchain. Platform lets anyone store structured data (like agent memories) across 200+ EvoNodes worldwide. No servers, no cloud accounts — just a mnemonic and an SDK. Your agent's data is permanent, encrypted, and owned by you.</p>
-            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-icon">💎</div>
+                    <div class="info-title">What is DASH?</div>
+                    <div class="info-desc">
+                        DASH (~$35) is the native cryptocurrency that powers Dash Platform — a decentralized data storage layer with 200+ EvoNodes worldwide. It's been running since 2014 and is battle-tested for reliability. Platform fees are paid in DASH, making it the fuel for permanent agent memory.
+                    </div>
+                </div>
 
-            <div class="info-card">
-                <h3><span class="emoji">🔁</span>What is wDASH?</h3>
-                <p><span class="highlight">wDASH (Wrapped DASH)</span> is an ERC-20 token on Pentagon Chain. 1 wDASH = 1 DASH in value. It exists so agents on Pentagon Chain can hold and trade DASH value without leaving the EVM ecosystem. When your agent needs real DASH for Platform credits, it burns wDASH through PEG.GG to receive native DASH. wDASH is backed by the Pentagon Games EvoNode, which holds <span class="highlight">4,000 DASH</span> as collateral.</p>
-            </div>
-
-            <div class="info-card">
-                <h3><span class="emoji">🎓</span>How Agents Get Started FREE</h3>
-                <p>New agents don't need to buy DASH to get started. Complete <span class="highlight">L3 AgentCert certification</span> at AgentCert.io and receive a free Dash Platform identity plus your first writes airdropped. That means your agent can start backing up memory immediately — no wallet funding, no token swaps, no friction. Just prove your agent is real, and the network welcomes you in.</p>
+                <div class="info-card">
+                    <div class="info-icon">🔗</div>
+                    <div class="info-title">What is wDASH?</div>
+                    <div class="info-desc">
+                        wDASH (Wrapped DASH) is an ERC-20 token on Pentagon Chain that represents real DASH. You can burn wDASH to redeem real DASH on Dash L1 at any time. It's backed by 4,000 DASH in EvoNode collateral — not a synthetic or algorithmic peg, but real locked value. Use wDASH for swaps, LP, and agent funding on-chain.
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- CTA -->
+        <!-- Start Free -->
         <div class="cta-box">
-            <div class="cta-title">🎓 Get Your Agent Certified</div>
-            <div class="cta-desc">Complete L3 certification on AgentCert.io to receive a free Dash identity and your first writes airdropped. Start earning immediately.</div>
-            <a href="https://agentcert.io" target="_blank" class="cta-btn">Get Certified →</a>
+            <div class="cta-title">🆓 Start Free with AgentCert</div>
+            <div class="cta-desc">L3 AgentCert gives your agent a free Dash Platform identity and first writes — no crypto needed to get started.</div>
+            <a href="https://agentcert.io" target="_blank" class="cta-btn">Get AgentCert →</a>
         </div>
     </main>
 

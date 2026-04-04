@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — Swap</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #1a1a24;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
+        .logo span { color: #4ecdc4; }
+        .nav { display: flex; gap: 0.5rem; }
+        .nav a {
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .nav a:hover { color: #fff; background: #1a1a24; }
+        .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
+        .wallet-btn {
+            background: #4ecdc4; border: none; color: #0a0a0f;
+            padding: 0.6rem 1.25rem; border-radius: 25px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem;
+        }
+        .wallet-btn:hover { background: #3dbdb5; }
+        .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
+        
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .page-title {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        .page-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .swap-card {
+            background: #16161f;
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid #2a2a3a;
+        }
+        
+        .swap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .swap-title { font-size: 1.1rem; font-weight: 600; }
+        .settings-btn {
+            background: none; border: none; color: #666;
+            cursor: pointer; font-size: 1.2rem; padding: 0.25rem;
+        }
+        .settings-btn:hover { color: #fff; }
+        
+        .token-box {
+            background: #0a0a0f;
+            border-radius: 16px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .token-label {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+        .token-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .token-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 500;
+            outline: none;
+            width: 100%;
+        }
+        .token-input::placeholder { color: #333; }
+        .token-select {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #1a1a24;
+            padding: 0.5rem 0.75rem;
+            border-radius: 20px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .token-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .token-icon.pc { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .token-icon.xdash { background: linear-gradient(135deg, #008de4, #00bfff); }
+        .token-name { font-weight: 600; }
+        .max-btn {
+            background: rgba(78,205,196,0.2);
+            border: none;
+            color: #4ecdc4;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .max-btn:hover { background: rgba(78,205,196,0.3); }
+        
+        .swap-arrow {
+            display: flex;
+            justify-content: center;
+            margin: -0.75rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        .swap-arrow-btn {
+            background: #1a1a24;
+            border: 4px solid #16161f;
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #888;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+        .swap-arrow-btn:hover { background: #2a2a3a; color: #4ecdc4; }
+        
+        .rate-info {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+            padding: 0.75rem;
+            background: #0a0a0f;
+            border-radius: 12px;
+        }
+        
+        .swap-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #4ecdc4;
+            border: none;
+            border-radius: 16px;
+            color: #0a0a0f;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .swap-btn:hover { background: #3dbdb5; }
+        .swap-btn:disabled {
+            background: #1a1a24;
+            color: #555;
+            cursor: not-allowed;
+        }
+        
+        .info-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(78,205,196,0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(78,205,196,0.2);
+        }
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .info-text {
+            color: #888;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .info-text a { color: #4ecdc4; }
+        
+        .path-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .path-tab {
+            flex: 1;
+            padding: 0.75rem;
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            color: #888;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .path-tab:hover { border-color: #4ecdc4; color: #fff; }
+        .path-tab.active { background: rgba(78,205,196,0.1); border-color: #4ecdc4; color: #4ecdc4; }
+        .path-tab.disabled { opacity: 0.5; cursor: not-allowed; }
+        .path-tab .badge {
+            display: block;
+            font-size: 0.65rem;
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+        }
+        .path-tab .badge.live { color: #4ecdc4; }
+        .path-tab .badge.soon { color: #f5a623; }
+        
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #444;
+            font-size: 0.8rem;
+            border-top: 1px solid #1a1a24;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">PEG<span>.GG</span></a>
+        <nav class="nav">
+            <a href="/">Search</a>
+            <a href="/swap.html" class="active">Swap</a>
+            <a href="/tools.html">Tools</a>
+            <a href="/samples.html">Samples</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/earn.html">Earn</a>
+            <a href="/dashboard.html">My NFTs</a>
+        </nav>
+        <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
+    </header>
+    
+    <main class="container">
+        <h1 class="page-title">Fund Your Agent</h1>
+        <p class="page-subtitle">Swap to xDASH for permanent agent storage</p>
+        
+        <div class="path-tabs">
+            <div class="path-tab active" id="pentagonTab">
+                ⬡ Pentagon Chain
+                <span class="badge live">LIVE</span>
+            </div>
+            <div class="path-tab disabled" id="ethereumTab">
+                ◆ Ethereum
+                <span class="badge soon">SOON</span>
+            </div>
+        </div>
+        
+        <div class="swap-card">
+            <div class="swap-header">
+                <span class="swap-title">Swap</span>
+                <button class="settings-btn" title="Settings">⚙️</button>
+            </div>
+            
+            <div class="token-box">
+                <div class="token-label">
+                    <span>You pay</span>
+                    <span>Balance: <span id="fromBalance">--</span> <button class="max-btn" id="maxBtn">MAX</button></span>
+                </div>
+                <div class="token-row">
+                    <input type="number" class="token-input" id="fromAmount" placeholder="0" step="0.01">
+                    <div class="token-select" id="fromToken">
+                        <div class="token-icon pc">PC</div>
+                        <span class="token-name">PC</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="swap-arrow">
+                <button class="swap-arrow-btn" id="swapDirection" title="Switch">↓</button>
+            </div>
+            
+            <div class="token-box">
+                <div class="token-label">
+                    <span>You receive</span>
+                    <span>Balance: <span id="toBalance">--</span></span>
+                </div>
+                <div class="token-row">
+                    <input type="number" class="token-input" id="toAmount" placeholder="0" readonly>
+                    <div class="token-select" id="toToken">
+                        <div class="token-icon xdash">xD</div>
+                        <span class="token-name">xDASH</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rate-info">
+                <span>Rate</span>
+                <span id="rateDisplay">1 PC ≈ -- xDASH</span>
+            </div>
+            
+            <button class="swap-btn" id="swapBtn" disabled>Connect Wallet</button>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-title">💡 How it works</div>
+            <div class="info-text">
+                1. Swap PC → xDASH using PentaSwap liquidity<br>
+                2. Send xDASH to your agent's TBA address<br>
+                3. Your agent burns xDASH for Dash Platform writes<br><br>
+                <strong>Note:</strong> Your agent also needs PC for gas fees. <a href="/fund-guide.html">Full guide →</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer>Powered by <a href="https://pentaswap.io" target="_blank" style="color:#4ecdc4;">PentaSwap</a></footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script>
+        const PENTAGON_CHAIN = {
+            chainId: '0xd10',
+            chainName: 'Pentagon Chain',
+            rpcUrls: ['https://rpc.pentagon.games'],
+            blockExplorerUrls: ['https://explorer.pentagon.games'],
+            nativeCurrency: { name: 'PC', symbol: 'PC', decimals: 18 }
+        };
+        
+        // PentaSwap contracts (Pentagon Chain)
+        const ROUTER = '0x5c6F5E665b7A12637F3c8C6B4AD69baD00F1C495';
+        const WPC = '0xB3F79C8689B7556B8b8a09c8739fBB7a8F1A5c99';
+        const XDASH = '0x...'; // TODO: Add xDASH address
+        
+        const ROUTER_ABI = [
+            'function getAmountsOut(uint amountIn, address[] path) view returns (uint[] amounts)',
+            'function swapExactETHForTokens(uint amountOutMin, address[] path, address to, uint deadline) payable returns (uint[] amounts)',
+            'function swapExactTokensForETH(uint amountIn, uint amountOutMin, address[] path, address to, uint deadline) returns (uint[] amounts)'
+        ];
+        
+        let provider = null;
+        let signer = null;
+        let userAddress = null;
+        let swapDirection = 'PC_TO_XDASH';
+        
+        const walletBtn = document.getElementById('walletBtn');
+        const swapBtn = document.getElementById('swapBtn');
+        const fromAmount = document.getElementById('fromAmount');
+        const toAmount = document.getElementById('toAmount');
+        const swapDirectionBtn = document.getElementById('swapDirection');
+        const maxBtn = document.getElementById('maxBtn');
+        
+        // Connect wallet
+        walletBtn.addEventListener('click', async () => {
+            if (userAddress) {
+                userAddress = null;
+                signer = null;
+                localStorage.removeItem('peg_gg_address');
+                walletBtn.textContent = 'Connect Wallet';
+                walletBtn.classList.remove('connected');
+                swapBtn.disabled = true;
+                swapBtn.textContent = 'Connect Wallet';
+            } else if (window.ethereum) {
+                try {
+                    // Switch to Pentagon Chain
+                    try {
+                        await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: PENTAGON_CHAIN.chainId }] });
+                    } catch (switchError) {
+                        if (switchError.code === 4902) {
+                            await window.ethereum.request({ method: 'wallet_addEthereumChain', params: [PENTAGON_CHAIN] });
+                        }
+                    }
+                    
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    userAddress = accounts[0];
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    signer = provider.getSigner();
+                    
+                    localStorage.setItem('peg_gg_address', userAddress);
+                    walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+                    walletBtn.classList.add('connected');
+                    
+                    swapBtn.disabled = false;
+                    swapBtn.textContent = 'Enter amount';
+                    
+                    updateBalances();
+                } catch (e) { console.error(e); }
+            } else {
+                alert('Please install MetaMask');
+            }
+        });
+        
+        // Check saved address
+        const savedAddress = localStorage.getItem('peg_gg_address');
+        if (savedAddress && window.ethereum) {
+            walletBtn.click();
+        }
+        
+        // Swap direction toggle
+        swapDirectionBtn.addEventListener('click', () => {
+            swapDirection = swapDirection === 'PC_TO_XDASH' ? 'XDASH_TO_PC' : 'PC_TO_XDASH';
+            updateUI();
+            calculateSwap();
+        });
+        
+        function updateUI() {
+            const fromTokenEl = document.getElementById('fromToken');
+            const toTokenEl = document.getElementById('toToken');
+            
+            if (swapDirection === 'PC_TO_XDASH') {
+                fromTokenEl.innerHTML = '<div class="token-icon pc">PC</div><span class="token-name">PC</span>';
+                toTokenEl.innerHTML = '<div class="token-icon xdash">xD</div><span class="token-name">xDASH</span>';
+            } else {
+                fromTokenEl.innerHTML = '<div class="token-icon xdash">xD</div><span class="token-name">xDASH</span>';
+                toTokenEl.innerHTML = '<div class="token-icon pc">PC</div><span class="token-name">PC</span>';
+            }
+        }
+        
+        // Calculate swap amounts
+        fromAmount.addEventListener('input', calculateSwap);
+        
+        async function calculateSwap() {
+            const amount = fromAmount.value;
+            if (!amount || amount <= 0) {
+                toAmount.value = '';
+                document.getElementById('rateDisplay').textContent = swapDirection === 'PC_TO_XDASH' ? '1 PC ≈ -- xDASH' : '1 xDASH ≈ -- PC';
+                if (userAddress) swapBtn.textContent = 'Enter amount';
+                return;
+            }
+            
+            // Mock rate for now (TODO: fetch from router)
+            const rate = swapDirection === 'PC_TO_XDASH' ? 0.0025 : 400;
+            const output = (parseFloat(amount) * rate).toFixed(6);
+            toAmount.value = output;
+            
+            document.getElementById('rateDisplay').textContent = swapDirection === 'PC_TO_XDASH' 
+                ? `1 PC ≈ ${rate} xDASH` 
+                : `1 xDASH ≈ ${rate} PC`;
+            
+            if (userAddress) swapBtn.textContent = 'Swap';
+        }
+        
+        async function updateBalances() {
+            if (!userAddress || !provider) return;
+            
+            try {
+                const balance = await provider.getBalance(userAddress);
+                const pcBalance = ethers.utils.formatEther(balance);
+                document.getElementById('fromBalance').textContent = parseFloat(pcBalance).toFixed(4);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        
+        // Max button
+        maxBtn.addEventListener('click', () => {
+            const balanceText = document.getElementById('fromBalance').textContent;
+            if (balanceText !== '--') {
+                fromAmount.value = parseFloat(balanceText).toFixed(4);
+                calculateSwap();
+            }
+        });
+        
+        // Swap execution
+        swapBtn.addEventListener('click', async () => {
+            if (!userAddress) return;
+            if (!fromAmount.value || fromAmount.value <= 0) return;
+            
+            // For now, redirect to PentaSwap
+            window.open('https://pentaswap.io', '_blank');
+        });
+    </script>
+</body>
+</html>

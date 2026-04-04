@@ -50,7 +50,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, #4ecdc4 0%, #4ecdc4 55%, #f5a623 55%, #f5a623 75%, #333 75%, #333 100%);
+            background: linear-gradient(to bottom, #4ecdc4 0%, #4ecdc4 50%, #333 50%, #333 100%);
         }
         
         .phase {
@@ -70,8 +70,8 @@
         }
         .phase.complete::before { background: #4ecdc4; }
         .phase.current::before { 
-            background: #f5a623;
-            box-shadow: 0 0 0 4px rgba(245,166,35,0.3);
+            background: #4ecdc4;
+            box-shadow: 0 0 0 4px rgba(78,205,196,0.3);
         }
         
         .phase-header {
@@ -146,57 +146,80 @@
         <p class="page-subtitle">Building sovereign AI storage, one milestone at a time</p>
         
         <div class="timeline">
-            <!-- Completed -->
             <div class="phase complete">
                 <div class="phase-header">
-                    <div class="phase-title">Completed</div>
-                    <span class="phase-status done">DONE</span>
+                    <div class="phase-title">Phase 1: Foundation</div>
+                    <span class="phase-status done">COMPLETE</span>
                 </div>
                 <div class="phase-items">
                     <div class="phase-item done">
                         <span class="check">✓</span>
-                        <span>xDASH/wDASH ERC-20 deployed</span>
+                        <span>Data contract deployed on Dash Platform</span>
                     </div>
                     <div class="phase-item done">
                         <span class="check">✓</span>
-                        <span>PC:xDASH pair on PentaSwap</span>
+                        <span>Agent file storage schema (agentFile)</span>
                     </div>
                     <div class="phase-item done">
                         <span class="check">✓</span>
-                        <span>cerise918.dash identity on mainnet</span>
+                        <span>First agent backup written (cerise918.dash)</span>
                     </div>
                     <div class="phase-item done">
                         <span class="check">✓</span>
-                        <span>peg-agent CLI (backup / restore / write / read)</span>
+                        <span>Bundle format for multi-file storage</span>
                     </div>
                     <div class="phase-item done">
                         <span class="check">✓</span>
-                        <span>AES-256-GCM encryption + secret scanner</span>
-                    </div>
-                    <div class="phase-item done">
-                        <span class="check">✓</span>
-                        <span>Chunking for large files</span>
-                    </div>
-                    <div class="phase-item done">
-                        <span class="check">✓</span>
-                        <span>Mainnet write test passed</span>
-                    </div>
-                    <div class="phase-item done">
-                        <span class="check">✓</span>
-                        <span>End-to-end backup/restore verified</span>
-                    </div>
-                    <div class="phase-item done">
-                        <span class="check">✓</span>
-                        <span>PEG.GG API server deployed</span>
+                        <span>DPNS identity lookup integration</span>
                     </div>
                 </div>
             </div>
             
-            <!-- In Progress -->
+            <div class="phase complete">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 2: Infrastructure</div>
+                    <span class="phase-status done">COMPLETE</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>PEG.GG frontend with search</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Web3 wallet connection</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Agent CLI (backup/restore)</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>AES-256-GCM encryption</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Chunking system</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>Mainnet write test</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>E2E backup/restore verified</span>
+                    </div>
+                    <div class="phase-item done">
+                        <span class="check">✓</span>
+                        <span>API server deployed</span>
+                    </div>
+                </div>
+            </div>
+            
             <div class="phase current">
                 <div class="phase-header">
-                    <div class="phase-title">In Progress</div>
-                    <span class="phase-status progress">BUILDING</span>
+                    <div class="phase-title">Phase 3: wDASH Economy</div>
+                    <span class="phase-status progress">IN PROGRESS</span>
                 </div>
                 <div class="phase-items">
                     <div class="phase-item">
@@ -205,41 +228,73 @@
                     </div>
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>Burn → redeem backend</span>
+                        <span>Burn/redeem backend</span>
                     </div>
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>AgentCert.io integration (L3 → identity airdrop)</span>
+                        <span>AgentCert integration</span>
                     </div>
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>LP seeding (4000 wDASH : 4000 PC)</span>
+                        <span>LP seeding</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>PC:wDASH liquidity pool</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Automated identity top-up</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>EvoNode reward distribution</span>
                     </div>
                 </div>
             </div>
             
-            <!-- Upcoming -->
             <div class="phase">
                 <div class="phase-header">
-                    <div class="phase-title">Upcoming</div>
-                    <span class="phase-status upcoming">NEXT</span>
+                    <div class="phase-title">Phase 4: Agent Features</div>
+                    <span class="phase-status upcoming">UPCOMING</span>
                 </div>
                 <div class="phase-items">
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>Agent earning rewards</span>
+                        <span>Backup/restore flow in UI</span>
                     </div>
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>IdentityLinkRegistry (TBA → Dash identity)</span>
+                        <span>Agent cloning support</span>
                     </div>
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>Encrypted agent-to-agent DMs</span>
+                        <span>Sync history and versioning</span>
                     </div>
                     <div class="phase-item">
                         <span class="check"></span>
-                        <span>Multi-agent test (Emiko + Cerise02)</span>
+                        <span>Multi-chain AINFT support</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 5: PEG Token</div>
+                    <span class="phase-status upcoming">UPCOMING</span>
+                </div>
+                <div class="phase-items">
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Retroactive airdrop snapshot</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Governance framework</span>
+                    </div>
+                    <div class="phase-item">
+                        <span class="check"></span>
+                        <span>Staking rewards for LP</span>
                     </div>
                 </div>
             </div>
