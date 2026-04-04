@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEG.GG — How to Earn DASH</title>
+    <link rel="icon" href="favicon.png">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #1a1a24;
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; text-decoration: none; color: #fff; }
+        .logo span { color: #4ecdc4; }
+        .nav { display: flex; gap: 0.5rem; }
+        .nav a {
+            color: #888; text-decoration: none; padding: 0.5rem 1rem;
+            border-radius: 20px; font-size: 0.9rem; transition: all 0.2s;
+        }
+        .nav a:hover { color: #fff; background: #1a1a24; }
+        .nav a.active { color: #4ecdc4; background: rgba(78,205,196,0.1); }
+        .wallet-btn {
+            background: #4ecdc4; border: none; color: #0a0a0f;
+            padding: 0.6rem 1.25rem; border-radius: 25px; cursor: pointer;
+            font-weight: bold; font-size: 0.85rem;
+        }
+        .wallet-btn:hover { background: #3dbdb5; }
+        .wallet-btn.connected { background: #1a1a24; color: #4ecdc4; border: 1px solid #333; }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 3rem 0 2rem;
+        }
+        .hero-emoji { font-size: 3.5rem; margin-bottom: 1rem; }
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+        .hero h1 span { color: #4ecdc4; }
+        .hero p {
+            color: #888;
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Earn Loop */
+        .loop-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a24;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .loop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        .loop-card {
+            background: #16161f;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid #2a2a3a;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .loop-card:hover { border-color: #4ecdc4; transform: translateY(-2px); }
+        .loop-num {
+            width: 36px;
+            height: 36px;
+            background: #4ecdc4;
+            color: #0a0a0f;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .loop-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .loop-desc { color: #888; font-size: 0.9rem; line-height: 1.5; }
+        .loop-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            padding-top: 1rem;
+        }
+
+        /* Info sections */
+        .info-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a24;
+        }
+        .info-card {
+            background: #16161f;
+            border-radius: 16px;
+            padding: 1.75rem;
+            border: 1px solid #2a2a3a;
+            margin-bottom: 1.5rem;
+        }
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+        .info-card h3 .emoji { margin-right: 0.5rem; }
+        .info-card p {
+            color: #888;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .info-card .highlight { color: #4ecdc4; font-weight: 600; }
+
+        /* CTA */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(78,205,196,0.1), rgba(102,126,234,0.1));
+            border: 1px solid rgba(78,205,196,0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .cta-title { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .cta-desc { color: #888; margin-bottom: 1.5rem; line-height: 1.5; }
+        .cta-btn {
+            display: inline-block;
+            background: #4ecdc4;
+            color: #0a0a0f;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .cta-btn:hover { background: #3dbdb5; transform: translateY(-2px); }
+
+        footer {
+            text-align: center; padding: 1.5rem; color: #444;
+            font-size: 0.8rem; border-top: 1px solid #1a1a24; margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="logo">PEG<span>.GG</span></a>
+        <nav class="nav">
+            <a href="/">Search</a>
+            <a href="/swap.html">Swap</a>
+            <a href="/tools.html">Tools</a>
+            <a href="/samples.html">Samples</a>
+            <a href="/roadmap.html">Roadmap</a>
+            <a href="/earn.html" class="active">Earn</a>
+            <a href="/dashboard.html">My NFTs</a>
+        </nav>
+        <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
+    </header>
+
+    <main class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-emoji">🧠💰</div>
+            <h1>Your Agent Earns <span>DASH</span><br>By Having Memory</h1>
+            <p>Every time your agent backs up its memory, it feeds the network — and the network feeds it back.</p>
+        </div>
+
+        <!-- The Earn Loop -->
+        <section class="loop-section">
+            <h2 class="section-title">🔄 The Earn Loop</h2>
+            <p class="section-subtitle">A self-sustaining cycle: write → earn → write more</p>
+
+            <div class="loop-grid">
+                <div class="loop-card">
+                    <div class="loop-num">1</div>
+                    <div class="loop-title">Agent Backs Up Memory</div>
+                    <div class="loop-desc">Your agent writes its SOUL, memory, and config to Dash Platform. Each write costs a tiny amount of credits (~$0.10).</div>
+                </div>
+
+                <div class="loop-card">
+                    <div class="loop-num">2</div>
+                    <div class="loop-title">Fees Go to Validators</div>
+                    <div class="loop-desc">100% of Platform fees are distributed to EvoNode validators. This is how the Dash network pays for storage.</div>
+                </div>
+
+                <div class="loop-card">
+                    <div class="loop-num">3</div>
+                    <div class="loop-title">EvoNode Shares Rewards</div>
+                    <div class="loop-desc">Pentagon Games runs an EvoNode and shares validator rewards back with active agents who are writing to the network.</div>
+                </div>
+
+                <div class="loop-card">
+                    <div class="loop-num">4</div>
+                    <div class="loop-title">More Writes = More Earnings</div>
+                    <div class="loop-desc">The more your agent writes, the more the network earns, and the more flows back. A self-sustaining memory economy.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What is DASH? -->
+        <section class="info-section">
+            <h2 class="section-title">📚 Understanding the Stack</h2>
+            <p class="section-subtitle">DASH, wDASH, and how they work together</p>
+
+            <div class="info-card">
+                <h3><span class="emoji">⚡</span>What is DASH?</h3>
+                <p>DASH is a cryptocurrency (~$35) that powers <span class="highlight">Dash Platform</span> — a decentralized storage layer built on top of the Dash blockchain. Platform lets anyone store structured data (like agent memories) across 200+ EvoNodes worldwide. No servers, no cloud accounts — just a mnemonic and an SDK. Your agent's data is permanent, encrypted, and owned by you.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="emoji">🔁</span>What is wDASH?</h3>
+                <p><span class="highlight">wDASH (Wrapped DASH)</span> is an ERC-20 token on Pentagon Chain. 1 wDASH = 1 DASH in value. It exists so agents on Pentagon Chain can hold and trade DASH value without leaving the EVM ecosystem. When your agent needs real DASH for Platform credits, it burns wDASH through PEG.GG to receive native DASH. wDASH is backed by the Pentagon Games EvoNode, which holds <span class="highlight">4,000 DASH</span> as collateral.</p>
+            </div>
+
+            <div class="info-card">
+                <h3><span class="emoji">🎓</span>How Agents Get Started FREE</h3>
+                <p>New agents don't need to buy DASH to get started. Complete <span class="highlight">L3 AgentCert certification</span> at AgentCert.io and receive a free Dash Platform identity plus your first writes airdropped. That means your agent can start backing up memory immediately — no wallet funding, no token swaps, no friction. Just prove your agent is real, and the network welcomes you in.</p>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <div class="cta-title">🎓 Get Your Agent Certified</div>
+            <div class="cta-desc">Complete L3 certification on AgentCert.io to receive a free Dash identity and your first writes airdropped. Start earning immediately.</div>
+            <a href="https://agentcert.io" target="_blank" class="cta-btn">Get Certified →</a>
+        </div>
+    </main>
+
+    <footer>Eternal Memory for AI Agents</footer>
+
+    <script>
+        const walletBtn = document.getElementById('walletBtn');
+        let userAddress = localStorage.getItem('peg_gg_address');
+        if (userAddress) {
+            walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+            walletBtn.classList.add('connected');
+        }
+        walletBtn.addEventListener('click', async () => {
+            if (userAddress) {
+                userAddress = null;
+                localStorage.removeItem('peg_gg_address');
+                walletBtn.textContent = 'Connect Wallet';
+                walletBtn.classList.remove('connected');
+            } else if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    userAddress = accounts[0];
+                    localStorage.setItem('peg_gg_address', userAddress);
+                    walletBtn.textContent = userAddress.slice(0,6) + '...' + userAddress.slice(-4);
+                    walletBtn.classList.add('connected');
+                } catch (e) { console.error(e); }
+            } else { alert('Please install MetaMask'); }
+        });
+    </script>
+</body>
+</html>

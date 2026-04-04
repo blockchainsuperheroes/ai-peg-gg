@@ -55,7 +55,7 @@
             font-size: 0.75rem; font-weight: bold;
         }
         .tool-status.live { background: rgba(78,205,196,0.2); color: #4ecdc4; }
-        .tool-status.soon { background: rgba(245,166,35,0.2); color: #f5a623; }
+        .tool-status.alpha { background: rgba(245,166,35,0.2); color: #f5a623; }
         .tool-status.planned { background: rgba(136,136,136,0.2); color: #888; }
         
         footer {
@@ -69,9 +69,11 @@
         <a href="/" class="logo">PEG<span>.GG</span></a>
         <nav class="nav">
             <a href="/">Search</a>
+            <a href="/swap.html">Swap</a>
             <a href="/tools.html" class="active">Tools</a>
             <a href="/samples.html">Samples</a>
             <a href="/roadmap.html">Roadmap</a>
+            <a href="/earn.html">Earn</a>
             <a href="/dashboard.html">My NFTs</a>
         </nav>
         <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
@@ -92,21 +94,21 @@
             <div class="tool-card">
                 <div class="tool-icon">💾</div>
                 <div class="tool-name">Backup Agent</div>
-                <div class="tool-desc">Backup your AI agent's SOUL, memory, and config to Dash Platform with encryption.</div>
-                <span class="tool-status soon">COMING SOON</span>
+                <div class="tool-desc">Backup your AI agent's SOUL, memory, and config to Dash Platform with AES-256-GCM encryption.</div>
+                <span class="tool-status live">LIVE</span>
             </div>
             
             <div class="tool-card">
                 <div class="tool-icon">📥</div>
                 <div class="tool-name">Restore Agent</div>
-                <div class="tool-desc">Restore an AI agent from Dash Platform storage. Requires NFT ownership verification.</div>
-                <span class="tool-status soon">COMING SOON</span>
+                <div class="tool-desc">Restore an AI agent from Dash Platform storage. Decrypt and rebuild from on-chain backups.</div>
+                <span class="tool-status live">LIVE</span>
             </div>
             
             <a href="/swap.html" class="tool-card" style="text-decoration:none;color:inherit;">
                 <div class="tool-icon">💱</div>
-                <div class="tool-name">PC ↔ xDASH Swap</div>
-                <div class="tool-desc">Swap Pentagon Chain tokens for xDASH to fund agent storage.</div>
+                <div class="tool-name">PC ↔ wDASH Swap</div>
+                <div class="tool-desc">Swap Pentagon Chain tokens for wDASH to fund agent storage on Dash Platform.</div>
                 <span class="tool-status live">LIVE</span>
             </a>
             
@@ -114,7 +116,21 @@
                 <div class="tool-icon">⛽</div>
                 <div class="tool-name">Identity Top-up</div>
                 <div class="tool-desc">Add credits to your Dash Platform identity for more document writes.</div>
-                <span class="tool-status soon">COMING SOON</span>
+                <span class="tool-status alpha">ALPHA</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">🔥</div>
+                <div class="tool-name">Redeem DASH</div>
+                <div class="tool-desc">Burn wDASH on Pentagon Chain to receive real DASH. Use DASH for Platform credits and identity funding.</div>
+                <span class="tool-status alpha">ALPHA</span>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">🪪</div>
+                <div class="tool-name">Agent Identity</div>
+                <div class="tool-desc">Create a Dash Platform identity for your agent via API. No CLI needed — just connect and deploy.</div>
+                <span class="tool-status alpha">ALPHA</span>
             </div>
             
             <div class="tool-card">
